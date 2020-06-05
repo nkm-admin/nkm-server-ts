@@ -1,12 +1,54 @@
 import { createHash } from 'crypto'
 
+/**
+ * 下划线转小驼峰
+ * @param str 转换字符串：user_info
+ */
+const toLowerCamelCase = (str: string): string => {
+  return str.replace(/(_[a-z])/g, $1 => $1.replace('_', '').toLocaleUpperCase())
+}
+
+/**
+ * 小驼峰转下划线分割
+ * @param str 转换字符串：userInfo
+ */
+const toUnderline = (str: string): string => {
+  return str.replace(/([A-Z])/g, $1 => `_${$1.toLocaleLowerCase()}`)
+}
+
 export default {
   /**
-   * 下划线转小驼峰
-   * @param str 转换字符串
+   * md5
+   * @param str 需要加密的字符串
    */
-  toLowerCamelCase: (str: string): string => {
-    return str.replace(/(_[a-z])/g, $1 => $1.replace('_', '').toLocaleUpperCase())
+  md5: (str: string): string => createHash('md5').update(`${str}${Date.now()}`).digest('hex'),
+
+  toLowerCamelCase,
+
+  toUnderline,
+
+  /**
+   * 将对象的key如果为下划线命名转换为小驼峰
+   * @param obj 被转换的对象
+   */
+  objectKeyToLowerCameCase: (obj: object): object => {
+    const result = {}
+    for (const [_key, _value] of Object.entries(obj)) {
+      result[toLowerCamelCase(_key)] = _value
+    }
+    return result
+  },
+
+  /**
+   * 将对象的key如果为驼峰命名转换为下划线
+   * @param obj 被转换的对象
+   */
+  objectKeyToUnderline: (obj: object): object => {
+    const result = {}
+    for (const [_key, _value] of Object.entries(obj)) {
+      result[toUnderline(_key)] = _value
+    }
+    return result
   },
 
   /**
@@ -14,12 +56,6 @@ export default {
    * @param obj any
    */
   isObject: (obj: any): boolean => Object.prototype.toString.call(obj) === '[object Object]',
-
-  /**
-   * md5
-   * @param str 需要加密的字符串
-   */
-  md5: (str: string): string => createHash('md5').update(`${str}${Date.now()}`).digest('hex'),
 
   /**
    * 一维数组转换为树形结构

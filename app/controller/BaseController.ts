@@ -1,23 +1,13 @@
 import { Controller } from 'egg'
 
-interface Response {
-  data?: any;
-  message?: string;
-  success?: boolean;
-  code?: string;
-  count?: number;
-}
-
 export default class BaseController extends Controller {
-  private responseStructure: Response = {
-    data: null,
-    success: false,
-    message: '请求成功',
-    code: '200',
-    count: 0
-  }
-
-  public success(response: Response) {
+  public success(response: {
+    data?: any;
+    message?: string;
+    success?: boolean;
+    code?: string;
+    count?: number;
+  } = {}) {
     // 转换字段为下划线分割为小驼峰
     const deepConversion = <T>(data: T): T => {
       let newData: any = null
@@ -54,26 +44,21 @@ export default class BaseController extends Controller {
       return newData
     }
 
-    let data: object = []
     if (Array.isArray(response.data)) {
-      data = deepConversion<object[]>(response.data.map((item: any) => item.dataValues))
-    } else if (this.ctx.helper.isObject(response.data) || this.ctx.helper.isObject(response.data.dataValues)) {
-      data = deepConversion<object>(response.data.dataValues || response.data)
-    } else {
-      data = response.data
+      response.data = deepConversion<object[]>(response.data.map((item: any) => item.dataValues))
+    } else if (this.ctx.helper.isObject(response.data)) {
+      response.data = deepConversion<object>(response.data.dataValues || response.data)
     }
 
     return {
-      ...this.responseStructure,
-      ...response,
-      success: true,
-      data
+      ...this.ctx.responseStruc(),
+      ...response
     }
   }
 
   public fail(response: Response) {
     return {
-      ...this.responseStructure,
+      ...this.ctx.responseStruc(this.ctx.errorMsg.common.failed),
       ...response,
       success: false
     }

@@ -6,14 +6,24 @@ interface ErrorMessage {
 }
 
 const common: ErrorMessage = {
+  success: {
+    errorMsg: '请求成功',
+    code: '10000'
+  },
+
+  failed: {
+    errorMsg: '请求失败',
+    code: '10001'
+  },
+
   noToken: {
     errorMsg: '用户登录已过期',
-    code: '10000'
+    code: '10002'
   },
 
   noAhthority: {
     errorMsg: '暂无请求权限',
-    code: '10001'
+    code: '10003'
   }
 }
 
@@ -39,7 +49,20 @@ const login: ErrorMessage = {
   }
 }
 
+const user: ErrorMessage = {
+  registeredFailed: {
+    errorMsg: '用户创建失败',
+    code: '20001'
+  },
+
+  userExists: {
+    errorMsg: '用户名已存在',
+    code: '20002'
+  }
+}
+
 export default {
   common,
-  login
+  login,
+  user
 }
