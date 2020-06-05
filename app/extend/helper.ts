@@ -17,11 +17,8 @@ const toUnderline = (str: string): string => {
 }
 
 export default {
-  /**
-   * md5
-   * @param str 需要加密的字符串
-   */
-  md5: (str: string): string => createHash('md5').update(`${str}${Date.now()}`).digest('hex'),
+  // md5加密
+  md5: (str: string, salt: string | number = Date.now()): string => createHash('md5').update(`${str}${salt}`).digest('hex'),
 
   toLowerCamelCase,
 
