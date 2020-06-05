@@ -8,9 +8,9 @@ export default (app: Application) => {
 
   router.post('/login', controller.login.login)
 
-  router.get('/user/list', controller.user.getUserList)
+  router.get('/user/list', controller.system.user.getUserList)
 
-  router.post('/user/registered', controller.user.registered)
+  router.post('/user/registered', controller.system.user.registered)
 
   router.get('/captcha', controller.captcha.init)
 }

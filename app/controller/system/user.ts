@@ -1,9 +1,9 @@
-import BaseController from './BaseController'
+import BaseController from '../BaseController'
 
 export default class User extends BaseController {
   public async getUserList() {
     const { ctx } = this
-    const { rows: data, count } = await ctx.service.user.getUserList({
+    const { rows: data, count } = await ctx.service.system.user.getUserList({
       limit: 10,
       page: 0
     })
@@ -15,7 +15,7 @@ export default class User extends BaseController {
 
   public async registered() {
     const { ctx } = this
-    await ctx.service.user.registered(ctx.request.body)
+    await ctx.service.system.user.registered(ctx.request.body)
     ctx.body = this.success()
   }
 }
