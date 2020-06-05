@@ -10,5 +10,7 @@ export default (app: Application) => {
 
   router.get('/user/list', controller.user.getUserList)
 
+  router.post('/user/registered', controller.user.registered)
+
   router.get('/captcha', controller.captcha.init)
 }

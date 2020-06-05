@@ -1,5 +1,18 @@
 import { Service } from 'egg'
 
+interface UserInfo {
+  loginName: string;
+  password: string;
+  displayName: string;
+  email: string;
+  role: string;
+  registeredTime: number;
+  lastLoginTime: number;
+  status: number;
+  isSystemAdmin: number;
+  avatar: string;
+}
+
 export default class User extends Service {
   // 获取所有用户
   public async getUserList({
@@ -15,19 +28,21 @@ export default class User extends Service {
     })
   }
 
-  // test
-  public async create() {
-    return this.ctx.model.User.create({
-      user_login_name: 'test',
-      user_password: '123456',
-      display_name: 'displayname',
-      user_email: 'email',
-      role: 'role',
-      user_registered: 123,
-      last_login_time: 123,
-      user_status: 1,
-      is_system_admin: 1,
-      avatar: '12'
+  public async registered(userInfo: UserInfo) {
+    const { ctx } = this
+    const user = await ctx.model.User.findOne({
+      where: {
+        login_name: userInfo.loginName
+      }
+    })
+
+    if (user) ctx.throw(200, ctx.errorMsg.user.userExists)
+
+    return ctx.model.User.create({
+      ...ctx.helper.objectKeyToUnderline(userInfo),
+      password: ctx.helper.md5(userInfo.password),
+      registered_time: Date.now(),
+      last_login_time: Date.now()
     })
   }
 }

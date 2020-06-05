@@ -2,31 +2,31 @@ import { Service } from 'egg'
 
 export default class Login extends Service {
   private async generateUserInfo(user: {
-    user_login_name: string;
-    user_password: string;
+    login_name: string;
+    password: string;
     display_name: string;
-    user_email: string;
+    email: string;
     role: string;
-    user_status: number;
+    status: number;
     is_system_admin: number;
     avatar: string;
   }) {
     const { ctx, app } = this
 
     // 生成token并存入redis
-    const token = ctx.helper.md5(Date.now() + user.user_login_name)
-    await app.redis.set(`token:${user.user_login_name}`, token, app.config.base.redis.mode, app.config.base.redis.expire)
+    const token = ctx.helper.md5(Date.now() + user.login_name)
+    await app.redis.set(`token:${user.login_name}`, token, app.config.base.redis.mode, app.config.base.redis.expire)
 
     const authority = await this.generateAuthority(user['r.permission'])
 
+    delete user['r.permission']
+    delete user.password
+
     await app.redis.hmset(token, {
       apis: JSON.stringify(authority.apis),
-      ...user
+      ...ctx.helper.objectKeyToLowerCameCase(user)
     })
     app.redis.expire(token, app.config.base.redis.expire)
-
-    delete user['r.permission']
-    delete user.user_password
 
     return {
       token,
@@ -94,10 +94,10 @@ export default class Login extends Service {
   private async updateLastLoginInfo(userName: string) {
     await this.ctx.model.User.update({
       last_login_time: Date.now(),
-      user_agent: this.ctx.headers['user-agent']
+      agent: this.ctx.headers['user-agent']
     }, {
       where: {
-        user_login_name: userName
+        login_name: userName
       }
     })
   }
@@ -123,8 +123,8 @@ export default class Login extends Service {
 
     const user = await ctx.model.User.findOne({
       where: {
-        user_login_name: loginName,
-        user_status: 1
+        login_name: loginName,
+        status: 1
       },
       include: [{
         model: ctx.model.Role,
@@ -140,12 +140,12 @@ export default class Login extends Service {
     }
 
     // 密码不正确
-    if (user.user_password !== password) {
+    if (user.password !== password) {
       ctx.throw(200, ctx.errorMsg.login.passwordError)
     }
 
     // 更新最后登录信息
-    this.updateLastLoginInfo(user.user_login_name)
+    this.updateLastLoginInfo(user.login_name)
 
     return this.generateUserInfo(user)
   }

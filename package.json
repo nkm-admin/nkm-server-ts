@@ -40,6 +40,7 @@
     "egg-mock": "^3.16.0",
     "eslint": "^6.7.2",
     "eslint-config-egg": "^8.0.0",
+    "husky": "^4.2.5",
     "tslib": "^1.9.0",
     "typescript": "^3.0.0"
   },
@@ -57,5 +58,8 @@
     "coverage"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHooks": {
+    "pre-commit": "npm run lint"
+  }
 }

@@ -7,11 +7,11 @@ export default function(app: any) {
       primaryKey: true,
       autoIncrement: true
     },
-    user_login_name: {
+    login_name: {
       type: STRING(60),
       allowNull: false
     },
-    user_password: {
+    password: {
       type: STRING,
       allowNull: false
     },
@@ -19,17 +19,18 @@ export default function(app: any) {
       type: STRING(60),
       allowNull: false
     },
-    user_email: {
+    email: {
       type: STRING(100),
+      defaultValue: '',
       allowNull: false
     },
     role: {
       type: STRING(50),
       allowNull: false
     },
-    user_registered: BIGINT,
+    registered_time: BIGINT,
     last_login_time: BIGINT,
-    user_status: {
+    status: {
       type: INTEGER,
       defaultValue: 1
     },
@@ -39,10 +40,12 @@ export default function(app: any) {
     },
     avatar: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: ''
     },
-    user_agent: {
+    agent: {
       type: STRING,
+      allowNull: false,
       defaultValue: ''
     }
   })

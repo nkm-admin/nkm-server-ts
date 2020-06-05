@@ -12,4 +12,10 @@ export default class User extends BaseController {
       count
     })
   }
+
+  public async registered() {
+    const { ctx } = this
+    await ctx.service.user.registered(ctx.request.body)
+    ctx.body = this.success()
+  }
 }
