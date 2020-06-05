@@ -13,6 +13,8 @@ logs/
 !.autod.conf.js
 !.eslintrc.js
 
+.github/
+
 app/**/*.js
 test/**/*.js
 config/**/*.js
