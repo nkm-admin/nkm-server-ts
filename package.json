@@ -59,7 +59,9 @@
   ],
   "author": "",
   "license": "MIT",
-  "gitHooks": {
-    "pre-commit": "npm run lint"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
