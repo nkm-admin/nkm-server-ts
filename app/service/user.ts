@@ -40,7 +40,7 @@ export default class User extends Service {
 
     return ctx.model.User.create({
       ...ctx.helper.objectKeyToUnderline(userInfo),
-      password: ctx.helper.md5(userInfo.password),
+      password: ctx.helper.md5(userInfo.password, ''),
       registered_time: Date.now(),
       last_login_time: Date.now()
     })
