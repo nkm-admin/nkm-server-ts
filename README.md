@@ -1,7 +1,7 @@
 # 后台服务端
 
-> 重构之前的后台，正好也是学习Egg+Typescript，目前正在开发中...
-> 技术栈：Nodejs+Eggjs+Typescript+Mysql+Redis
+- 重构之前的后台，正好也是学习Egg+Typescript，目前正在开发中...
+- 技术栈：Nodejs+Eggjs+Typescript+Mysql+Redis
 
 ## QuickStart
 
