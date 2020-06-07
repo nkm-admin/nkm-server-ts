@@ -35,6 +35,7 @@ export default class User extends Service {
     limit: number;
   }) {
     return this.ctx.model.User.findAndCountAll({
+      attributes: ['id', 'login_name', 'display_name', 'email', 'role', 'registered_time', 'last_login_time', 'status', 'is_system_admin', 'avatar', 'agent', 'is_delete'],
       offset: page,
       limit
     })
