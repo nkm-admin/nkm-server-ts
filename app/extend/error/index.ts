@@ -71,8 +71,21 @@ const user: ErrorMessage = {
   }
 }
 
+const resource: ErrorMessage = {
+  exists: {
+    errorMsg: '资源编码已存在',
+    code: '20010'
+  },
+
+  notExists: {
+    errorMsg: '资源不存在',
+    code: '20011'
+  }
+}
+
 export default {
   common,
   login,
-  user
+  user,
+  resource
 }

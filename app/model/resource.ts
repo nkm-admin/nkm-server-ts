@@ -20,27 +20,33 @@ export default function(app: any) {
     },
     parent_id: {
       type: INTEGER,
-      allowNull: true
+      allowNull: true,
+      defaultValue: 0
     },
     parent_code: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
+      defaultValue: ''
     },
     icon: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
+      defaultValue: ''
     },
     sort: {
       type: INTEGER(10),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 1
     },
     path: {
       type: STRING,
-      allowNull: true
+      allowNull: true,
+      defaultValue: ''
     },
     enable: {
       type: INTEGER(10),
-      allowNull: true
+      allowNull: true,
+      defaultValue: 1
     },
     create_time: {
       type: BIGINT,
