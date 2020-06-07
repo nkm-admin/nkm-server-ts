@@ -8,6 +8,8 @@ export default (app: Application) => {
 
   router.post('/login', controller.login.login)
 
+  router.post('/login-out', controller.loginOut.loginOut)
+
   router.get('/system/user/list', controller.system.user.getUserList)
   router.post('/system/user/registered', controller.system.user.registered)
   router.post('/system/user/del', controller.system.user.del)

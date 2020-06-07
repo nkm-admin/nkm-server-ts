@@ -14,8 +14,7 @@ export default class Login extends Service {
     const { ctx, app } = this
 
     // 生成token并存入redis
-    const token = ctx.helper.md5(Date.now() + user.login_name)
-    await app.redis.set(`token:${user.login_name}`, token, app.config.base.redis.mode, app.config.base.redis.expire)
+    const token = ctx.helper.md5(user.login_name)
 
     const authority = await this._generateAuthority(user['r.permission'])
 
