@@ -24,6 +24,11 @@ const common: ErrorMessage = {
   noAhthority: {
     errorMsg: '暂无请求权限',
     code: '10003'
+  },
+
+  verificationFailed: {
+    errorMsg: '参数校验失败',
+    code: '10004'
   }
 }
 
@@ -56,8 +61,13 @@ const user: ErrorMessage = {
   },
 
   userExists: {
-    errorMsg: '用户名已存在',
+    errorMsg: '用户已存在',
     code: '20002'
+  },
+
+  userNotExists: {
+    errorMsg: '用户不存在',
+    code: '20003'
   }
 }
 

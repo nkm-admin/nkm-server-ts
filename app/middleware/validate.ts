@@ -29,7 +29,9 @@ export default function() {
 
       await next()
     } catch (e) {
-      console.log('validate校验失败===>', e.errorMsg, e.code)
+      console.log('validate校验失败===>', e)
+      if (e.code === 'invalid_param') ctx.throw(200, ctx.errorMsg.common.verificationFailed)
+
       ctx.throw(200, {
         errorMsg: e.errorMsg,
         code: e.code

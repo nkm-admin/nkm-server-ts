@@ -1,7 +1,7 @@
 import { Service } from 'egg'
 
 export default class Login extends Service {
-  private async generateUserInfo(user: {
+  private async _generateUserInfo(user: {
     login_name: string;
     password: string;
     display_name: string;
@@ -17,7 +17,7 @@ export default class Login extends Service {
     const token = ctx.helper.md5(Date.now() + user.login_name)
     await app.redis.set(`token:${user.login_name}`, token, app.config.base.redis.mode, app.config.base.redis.expire)
 
-    const authority = await this.generateAuthority(user['r.permission'])
+    const authority = await this._generateAuthority(user['r.permission'])
 
     delete user['r.permission']
     delete user.password
@@ -36,7 +36,7 @@ export default class Login extends Service {
   }
 
   // 生成权限信息
-  private async generateAuthority(permission: string) {
+  private async _generateAuthority(permission: string) {
     const { ctx } = this
     // 查找所有的资源
     let resource = []
@@ -91,7 +91,7 @@ export default class Login extends Service {
   }
 
   // 更新最后的登录信息
-  private async updateLastLoginInfo(userName: string) {
+  private async _updateLastLoginInfo(userName: string) {
     await this.ctx.model.User.update({
       last_login_time: Date.now(),
       agent: this.ctx.headers['user-agent']
@@ -145,8 +145,8 @@ export default class Login extends Service {
     }
 
     // 更新最后登录信息
-    this.updateLastLoginInfo(user.login_name)
+    this._updateLastLoginInfo(user.login_name)
 
-    return this.generateUserInfo(user)
+    return this._generateUserInfo(user)
   }
 }

@@ -47,6 +47,11 @@ export default function(app: any) {
       type: STRING,
       allowNull: false,
       defaultValue: ''
+    },
+    is_delete: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   })
 

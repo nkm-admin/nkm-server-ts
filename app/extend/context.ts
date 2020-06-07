@@ -1,4 +1,5 @@
 import errorMessage from './error'
+import { DEFAULT_PAGE_LIMIT } from '../settings'
 
 interface Response {
   data?: any;
@@ -10,6 +11,27 @@ interface Response {
 
 export default {
   errorMsg: errorMessage,
+
+  defaultPageLimit: DEFAULT_PAGE_LIMIT,
+
+  /**
+   * 转换请求分页页码和每页分页量
+   * @param {Object} pagination 分页参数
+   * @param {number} pagination.page  - 当前页码
+   * @param {string} pagination.limit - 分页量
+   */
+  conversionPagination({
+    page = 1,
+    limit = DEFAULT_PAGE_LIMIT
+  }: {
+    page: number;
+    limit: number;
+  }) {
+    return {
+      page: page - 1,
+      limit: +limit
+    }
+  },
 
   // 请求返回结构
   responseStruc(res: Response = {}): Response {
