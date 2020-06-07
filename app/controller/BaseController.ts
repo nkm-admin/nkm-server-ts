@@ -45,7 +45,7 @@ export default class BaseController extends Controller {
     }
 
     if (Array.isArray(response.data)) {
-      response.data = deepConversion<object[]>(response.data.map((item: any) => item.dataValues))
+      response.data = deepConversion<object[]>(response.data.map((item: any) => item.dataValues || item))
     } else if (this.ctx.helper.isObject(response.data)) {
       response.data = deepConversion<object>(response.data.dataValues || response.data)
     }
