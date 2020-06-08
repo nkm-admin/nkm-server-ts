@@ -8,17 +8,23 @@ export default function(app: any) {
     },
     name: {
       type: STRING,
+      allowNull: false,
       defaultValue: ''
     },
     code: {
       type: STRING,
+      allowNull: false,
       defaultValue: ''
     },
     permission: {
       type: STRING,
+      allowNull: false,
       defaultValue: ''
     },
-    create_time: BIGINT
+    create_time: {
+      type: BIGINT,
+      allowNull: false
+    }
   })
 
   Role.associate = () => {

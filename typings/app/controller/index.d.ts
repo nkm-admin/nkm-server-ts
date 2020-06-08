@@ -7,6 +7,7 @@ import ExportCaptcha from '../../../app/controller/captcha';
 import ExportLogin from '../../../app/controller/login';
 import ExportLoginOut from '../../../app/controller/loginOut';
 import ExportSystemResource from '../../../app/controller/system/resource';
+import ExportSystemRole from '../../../app/controller/system/role';
 import ExportSystemUser from '../../../app/controller/system/user';
 
 declare module 'egg' {
@@ -17,6 +18,7 @@ declare module 'egg' {
     loginOut: ExportLoginOut;
     system: {
       resource: ExportSystemResource;
+      role: ExportSystemRole;
       user: ExportSystemUser;
     }
   }

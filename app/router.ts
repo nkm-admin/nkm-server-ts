@@ -21,5 +21,8 @@ export default (app: Application) => {
   router.post('/system/resource/del', controller.system.resource.del)
   router.get('/system/resource/tree', controller.system.resource.getTree)
 
+  router.get('/system/role/list', controller.system.role.getList)
+  router.post('/system/role/save', controller.system.role.save)
+
   router.get('/captcha', controller.captcha.init)
 }

@@ -83,9 +83,22 @@ const resource: ErrorMessage = {
   }
 }
 
+const role: ErrorMessage = {
+  exists: {
+    errorMsg: '角色已存在',
+    code: '20020'
+  },
+
+  notExists: {
+    errorMsg: '角色不存在',
+    code: '20021'
+  }
+}
+
 export default {
   common,
   login,
   user,
-  resource
+  resource,
+  role
 }
