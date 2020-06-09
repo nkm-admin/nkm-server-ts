@@ -17,7 +17,7 @@ export default (app: Application) => {
   router.post('/system/user/reset-password', controller.system.user.resetPassword)
   router.post('/system/user/modify-password', controller.system.user.modifyPassword)
 
-  router.post('/system/resource/save', controller.system.resource.create)
+  router.post('/system/resource/save', controller.system.resource.save)
   router.post('/system/resource/del', controller.system.resource.del)
   router.get('/system/resource/tree', controller.system.resource.getTree)
 

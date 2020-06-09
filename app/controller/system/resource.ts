@@ -1,9 +1,9 @@
 import BaseController from '../BaseController'
 
 export default class Resource extends BaseController {
-  public async create() {
+  public async save() {
     const { ctx } = this
-    await ctx.service.system.resource.create(ctx.request.body)
+    await ctx.service.system.resource.save(ctx.request.body)
     ctx.body = this.success()
   }
 
