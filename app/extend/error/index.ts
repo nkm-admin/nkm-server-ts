@@ -95,10 +95,23 @@ const role: ErrorMessage = {
   }
 }
 
+const dictionary: ErrorMessage = {
+  exists: {
+    errorMsg: '字典已存在',
+    code: '20020'
+  },
+
+  notExists: {
+    errorMsg: '字典不存在',
+    code: '20021'
+  }
+}
+
 export default {
   common,
   login,
   user,
   resource,
-  role
+  role,
+  dictionary
 }
