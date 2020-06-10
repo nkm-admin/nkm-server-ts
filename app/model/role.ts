@@ -24,6 +24,11 @@ export default function(app: any) {
     create_time: {
       type: BIGINT,
       allowNull: false
+    },
+    is_delete: {
+      type: INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   })
 

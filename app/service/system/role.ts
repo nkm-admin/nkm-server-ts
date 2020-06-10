@@ -15,42 +15,32 @@ interface SaveOption extends UpdateOption {
 }
 
 export default class Role extends Service {
-  private async _judgeRole({
-    id,
-    code
-  }: {
-    id?: number;
-    code?: string;
-  }) {
-    const { ctx } = this
+  // 通过id查找是否存在
+  // private async _queryTheExistenceById(id: number) {
+  //   const role = await this.ctx.model.Role.findOne({
+  //     where: {
+  //       id
+  //     },
+  //     raw: true
+  //   })
+  //   if (!role) return this.ctx.throw(200, this.ctx.errorMsg.role.notExists)
+  // }
 
-    if (id) {
-      const role = await ctx.model.Role.findOne({
-        id,
-        where: {
-          id
-        }
-      })
-      if (!role) return ctx.throw(200, ctx.errorMsg.role.notExists)
-    }
-
-    if (code && !id) {
-      const role = await ctx.model.Role.findOne({
-        code,
-        where: {
-          code
-        }
-      })
-      if (role) return ctx.throw(200, ctx.errorMsg.role.exists)
-    }
+  // 通过code查找是否存在
+  private async _queryTheExistenceByCode(code: string) {
+    const role = await this.ctx.model.Role.findOne({
+      where: {
+        code
+      },
+      raw: true
+    })
+    if (role) return this.ctx.throw(200, this.ctx.errorMsg.role.exists)
   }
 
   private async _create(option: CreateOption) {
     const { ctx } = this
 
-    await this._judgeRole({
-      code: option.code
-    })
+    await this._queryTheExistenceByCode(option.code)
 
     return ctx.model.Role.create({
       ...option,
@@ -59,10 +49,20 @@ export default class Role extends Service {
   }
 
   private async _update(option: UpdateOption) {
-    const { ctx } = this
-    await this._judgeRole({
-      id: option.id
+    const { ctx, app } = this
+
+    // 查询角色是否已经存在
+    const role = await this.ctx.model.Role.findOne({
+      where: {
+        id: {
+          [app.Sequelize.Op.not]: option.id
+        },
+        code: option.code
+      },
+      raw: true
     })
+
+    if (role) return this.ctx.throw(200, this.ctx.errorMsg.role.exists)
 
     return ctx.model.Role.update({
       ...ctx.helper.objectKeyToUnderline(option)
