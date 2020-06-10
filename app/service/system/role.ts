@@ -10,27 +10,27 @@ interface UpdateOption extends CreateOption {
   id: number;
 }
 
-interface SaveOption extends UpdateOption {
-
-}
+interface SaveOption extends UpdateOption {}
 
 export default class Role extends Service {
   // 通过id查找是否存在
-  // private async _queryTheExistenceById(id: number) {
-  //   const role = await this.ctx.model.Role.findOne({
-  //     where: {
-  //       id
-  //     },
-  //     raw: true
-  //   })
-  //   if (!role) return this.ctx.throw(200, this.ctx.errorMsg.role.notExists)
-  // }
+  private async _queryTheExistenceById(id: number) {
+    const role = await this.ctx.model.Role.findOne({
+      where: {
+        id,
+        is_delete: 0
+      },
+      raw: true
+    })
+    if (!role) return this.ctx.throw(200, this.ctx.errorMsg.role.notExists)
+  }
 
   // 通过code查找是否存在
   private async _queryTheExistenceByCode(code: string) {
     const role = await this.ctx.model.Role.findOne({
       where: {
-        code
+        code,
+        is_delete: 0
       },
       raw: true
     })
@@ -57,7 +57,8 @@ export default class Role extends Service {
         id: {
           [app.Sequelize.Op.not]: option.id
         },
-        code: option.code
+        code: option.code,
+        is_delete: 0
       },
       raw: true
     })
@@ -85,5 +86,17 @@ export default class Role extends Service {
 
   public async save(option: SaveOption) {
     return option.id ? this._update(option) : this._create(option)
+  }
+
+  public async del(id: number) {
+    await this._queryTheExistenceById(id)
+
+    return this.ctx.model.Role.update({
+      is_delete: 1
+    }, {
+      where: {
+        id
+      }
+    })
   }
 }

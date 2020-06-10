@@ -23,6 +23,7 @@ export default (app: Application) => {
 
   router.get('/system/role/list', controller.system.role.getList)
   router.post('/system/role/save', controller.system.role.save)
+  router.post('/system/role/del', controller.system.role.del)
 
   router.get('/captcha', controller.captcha.init)
 }
