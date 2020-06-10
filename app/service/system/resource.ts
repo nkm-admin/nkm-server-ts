@@ -19,64 +19,34 @@ interface UpdateOption extends CreateOption {
 interface SaveOption extends UpdateOption {}
 
 export default class Resource extends Service {
-  private async _judgeResource({
-    id,
-    code,
-    flag
-  }: {
-    id?: number;
-    code?: string;
-    flag: 'create' | 'update' | 'del';
-  }) {
-    const { ctx } = this
-
-    if (flag === 'update') {
-      const resource = await ctx.model.Resource.findOne({
+  // 通过id查找是否存在
+  private async _queryTheExistenceById(id: number) {
+    const resource = await this.ctx.model.Resource.findOne({
+      where: {
         id,
+        is_delete: 0
+      },
+      raw: true
+    })
+    if (!resource) return this.ctx.throw(200, this.ctx.errorMsg.resource.notExists)
+  }
+
+  // 通过code查找是否存在
+  private async _queryTheExistenceByCode(code: string) {
+    const resource = await this.ctx.model.Resource.findOne({
+      where: {
         code,
-        where: {
-          id
-        },
-        raw: true
-      })
-
-      // 资源编码不存在
-      if (!resource) return ctx.throw(200, ctx.errorMsg.resource.notExists)
-
-      // 资源编码重复
-      if (resource.code === code) return ctx.throw(200, ctx.errorMsg.resource.exists)
-    }
-
-    if (flag === 'create') {
-      const resource = await ctx.model.Resource.findOne({
-        code,
-        where: {
-          code
-        },
-        raw: true
-      })
-      if (resource) return ctx.throw(200, ctx.errorMsg.resource.exists)
-    }
-
-    if (flag === 'del') {
-      const resource = await ctx.model.Resource.findOne({
-        id,
-        where: {
-          id
-        },
-        raw: true
-      })
-      if (!resource) return ctx.throw(200, ctx.errorMsg.resource.notExists)
-    }
+        is_delete: 0
+      },
+      raw: true
+    })
+    if (resource) return this.ctx.throw(200, this.ctx.errorMsg.resource.exists)
   }
 
   private async _create(option: CreateOption) {
     const { ctx } = this
 
-    await this._judgeResource({
-      code: option.code,
-      flag: 'create'
-    })
+    await this._queryTheExistenceByCode(option.code)
 
     return ctx.model.Resource.create({
       ...ctx.helper.objectKeyToUnderline(option),
@@ -85,13 +55,22 @@ export default class Resource extends Service {
   }
 
   private async _update(option: UpdateOption) {
-    const { ctx } = this
+    const { ctx, app } = this
 
-    await this._judgeResource({
-      id: option.id,
-      code: option.code,
-      flag: 'update'
+    await this._queryTheExistenceById(option.id)
+
+    const resource = await this.ctx.model.Resource.findOne({
+      where: {
+        id: {
+          [app.Sequelize.Op.not]: option.id
+        },
+        code: option.code,
+        is_delete: 0
+      },
+      raw: true
     })
+
+    if (resource) return this.ctx.throw(200, this.ctx.errorMsg.resource.exists)
 
     return ctx.model.Resource.update({
       ...ctx.helper.objectKeyToUnderline(option)
@@ -119,10 +98,7 @@ export default class Resource extends Service {
   public async del(id: number) {
     const { ctx } = this
 
-    await this._judgeResource({
-      id,
-      flag: 'del'
-    })
+    await this._queryTheExistenceById(id)
 
     return ctx.model.Resource.update({
       is_delete: 1
