@@ -20,7 +20,7 @@ export default class Captcha extends Service {
       await app.redis.set(`captcha:${newToken}`, text, app.config.base.redis.mode, 600)
       return {
         token: newToken,
-        data
+        image: data
       }
     }
 
@@ -28,7 +28,7 @@ export default class Captcha extends Service {
       await app.redis.set(`captcha:${token}`, text, app.config.base.redis.mode, 600)
       return {
         token,
-        data
+        image: data
       }
     }
   }

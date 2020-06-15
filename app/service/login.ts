@@ -1,4 +1,5 @@
 import { Service } from 'egg'
+import { routerPrefix } from '../settings'
 
 export default class Login extends Service {
   private async _generateUserInfo(user: {
@@ -27,6 +28,8 @@ export default class Login extends Service {
     })
     app.redis.expire(token, app.config.base.redis.expire)
 
+    delete authority.apis
+
     return {
       token,
       userInfo: user,
@@ -37,6 +40,10 @@ export default class Login extends Service {
   // 生成权限信息
   private async _generateAuthority(permission: string) {
     const { ctx } = this
+
+    // 账号没有权限访问
+    if (!permission) ctx.throw(200, ctx.errorMsg.login.authorityError)
+
     // 查找所有的资源
     let resource = []
 
@@ -51,9 +58,9 @@ export default class Login extends Service {
     // 当前用户的权限
     const currentUserPermission: string[] = permission.split(',')
 
-    const menus: object[] = []
+    const menu: object[] = []
 
-    const menusUrl: string[] = []
+    const menuUrls: string[] = []
 
     const btnCodes: string[] = []
 
@@ -63,8 +70,8 @@ export default class Login extends Service {
       if (currentUserPermission.findIndex(v => +v === item.id) !== -1) {
         switch (item.type) {
           case 'system:resource:menu':
-            menus.push(item)
-            menusUrl.push(item.path)
+            menu.push(item)
+            menuUrls.push(item.path)
             break
           case 'system:resource:btn':
             btnCodes.push(item.code)
@@ -77,14 +84,15 @@ export default class Login extends Service {
     })
 
     return {
-      menus: ctx.helper.sortTreeArr(ctx.helper.deepTree(menus)),
-      menusUrl,
+      menu: ctx.helper.sortTreeArr(ctx.helper.deepTree(menu)),
+      menuUrls,
       btnCodes,
       apis: [
         ...apis,
-        '/api/nkm-admin/login',
-        '/api/nkm-admin/login-out',
-        '/api/nkm-admin/upload'
+        `${routerPrefix}/login`,
+        `${routerPrefix}/login-out`,
+        `${routerPrefix}/upload`,
+        `${routerPrefix}/system/dictionary/tree`
       ]
     }
   }

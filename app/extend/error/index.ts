@@ -21,7 +21,7 @@ const common: ErrorMessage = {
     code: '10002'
   },
 
-  noAhthority: {
+  noAuthority: {
     errorMsg: '暂无请求权限',
     code: '10003'
   },
@@ -49,7 +49,7 @@ const login: ErrorMessage = {
   },
 
   authorityError: {
-    errorMsg: '权限查找失败',
+    errorMsg: '该账号暂无访问权限',
     code: '10013'
   }
 }

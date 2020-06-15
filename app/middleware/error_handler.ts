@@ -20,8 +20,8 @@ export default function() {
       // 如果状态为200时为业务逻辑错误
       if (status === 200) {
         error = {
-          message: err.errorMsg || 'Internal Server Error',
-          code: err.code || 500,
+          message: err.errorMsg,
+          code: err.code,
           success: false,
           data: null,
           count: 0

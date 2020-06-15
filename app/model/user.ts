@@ -26,6 +26,7 @@ export default function(app: any) {
     },
     role: {
       type: STRING(50),
+      defaultValue: 'test',
       allowNull: false
     },
     registered_time: BIGINT,
