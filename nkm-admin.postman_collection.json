@@ -1,0 +1,763 @@
+{
+	"info": {
+		"_postman_id": "a7605be6-1b13-4c15-895e-0b25237ae18e",
+		"name": "nkm-admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户管理",
+			"item": [
+				{
+					"name": "用户注册",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"loginName\": \"som1214\",\n\t\"email\": \"me@xuanmo.xin\",\n\t\"displayName\": \"轩陌\",\n\t\"password\": \"123456\",\n\t\"role\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/user/registered",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"registered"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"page\": 1,\n\t\"limit\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/system/user/list?page=1&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户删除",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 222\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/user/del",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户分配角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 34,\n\t\"role\": \"test123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/user/modify-role",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"modify-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户重置密码",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 37\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/user/reset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户修改密码",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"12345678\",\n\t\"id\": 39\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/user/modify-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"modify-password"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "资源管理",
+			"item": [
+				{
+					"name": "资源保存",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 99,\n\t\"name\": \"资源管理\",\n\t\"code\": \"system:resource12\",\n\t\"type\": \"system:resource:api\",\n\t\"parentId\": 12,\n\t\"parentCode\": \"\",\n\t\"icon\": \"\",\n\t\"sort\": 1,\n\t\"url\": \"/system/resource\",\n\t\"enable\": 0\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/resource/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"resource",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "资源列表树",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/system/resource/tree",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"resource",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "资源删除",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 99\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/resource/del",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"resource",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "角色管理",
+			"item": [
+				{
+					"name": "角色保存",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"系统管理11\",\n\t\"code\": \"test111\",\n\t\"permission\": \"11,12,1\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/role/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"role",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色列表",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/system/role/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"role",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色删除",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 171\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/role/del",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"role",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "数据字典",
+			"item": [
+				{
+					"name": "保存",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 23,\n\t\"name\": \"支出类型11\",\n\t\"code\": \"type\",\n\t\"value\": 1,\n\t\"parent_id\": 3\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/dictionary/save",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"dictionary",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "列表树",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/system/dictionary/tree",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"dictionary",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 21\n}"
+						},
+						"url": {
+							"raw": "{{url}}/system/dictionary/del",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"dictionary",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-csrf-token",
+						"value": "{{csrfToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"loginName\": \"admin\",\n\t\"password\": \"123456\",\n\t\"captcha\": \"1\",\n\t\"token\": \"14a66bfcaa258152518e2ac576ee8618\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "登出",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-csrf-token",
+						"value": "{{csrfToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{url}}/login-out",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login-out"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "文件上传",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "215165020d8ffa201fa84c87d104da83",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/nkm-admin/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"nkm-admin",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "验证码",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/captcha",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"captcha"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2ed3459b-3b65-4359-84cc-34bc94fbcc9c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1c0095c5-686d-48c5-9545-2d3e43bd94a7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c0625989-3787-410f-a89b-99792ad2b79b",
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "c830cf12-27ae-4155-85dc-6ed1b5987504",
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d91603b6-f1cf-4ed6-bb42-6704d6f9974e",
+			"key": "csrfToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
