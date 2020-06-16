@@ -54,7 +54,7 @@ export default class User extends Service {
 
     return ctx.model.User.create({
       ...ctx.helper.objectKeyToUnderline(userInfo),
-      password: ctx.helper.md5(userInfo.password, ''),
+      password: ctx.helper.md5(userInfo.password, false),
       registered_time: Date.now(),
       last_login_time: Date.now()
     })
@@ -91,7 +91,7 @@ export default class User extends Service {
     await this._judgeUser(id)
 
     return this.ctx.model.User.update({
-      password: this.ctx.helper.md5(DEFAULT_PASSWORD, '')
+      password: this.ctx.helper.md5(DEFAULT_PASSWORD, false)
     }, {
       where: {
         id
@@ -104,7 +104,7 @@ export default class User extends Service {
     await this._judgeUser(id)
 
     return this.ctx.model.User.update({
-      password: this.ctx.helper.md5(password, '')
+      password: this.ctx.helper.md5(password, false)
     }, {
       where: {
         id

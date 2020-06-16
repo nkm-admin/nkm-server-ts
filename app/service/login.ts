@@ -147,7 +147,7 @@ export default class Login extends Service {
     }
 
     // 密码不正确
-    if (user.password !== ctx.helper.md5(password, '')) {
+    if (user.password !== ctx.helper.md5(password, false)) {
       ctx.throw(200, ctx.errorMsg.login.passwordError)
     }
 
