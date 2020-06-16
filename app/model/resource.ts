@@ -44,7 +44,7 @@ export default function(app: any) {
       allowNull: false,
       defaultValue: ''
     },
-    enable: {
+    enabled: {
       type: INTEGER(10),
       allowNull: false,
       defaultValue: 1

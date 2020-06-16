@@ -90,7 +90,8 @@ export default class Resource extends Service {
 
     const resource = await ctx.model.Resource.findAll({
       where: {
-        is_delete: 0
+        is_delete: 0,
+        enabled: 1
       },
       raw: true
     })
