@@ -16,10 +16,6 @@ export default class extends Service {
 
     const year = ctx.datejs().format('yyyy')
     const month = ctx.datejs().format('MM')
-    const day = ctx.datejs().format('dd')
-    const hour = ctx.datejs().format('HH')
-    const minute = ctx.datejs().format('mm')
-    const second = ctx.datejs().format('ss')
 
     // 文件上传类型
     const dirType = ['account', 'editor']
@@ -46,7 +42,7 @@ export default class extends Service {
       const fileType = file.mime
 
       // 文件名
-      const filename = `${year}${month}${day}${hour}${minute}${second}${Math.random().toString().substring(2, 8)}.${ext}`
+      const filename = `${ctx.datejs().format('yyyyMMddHHmmss')}${Math.random().toString().substring(2, 8)}.${ext}`
 
       // 创建可写流
       const upStream = fs.createWriteStream(`${writeDir}/${filename}`)
@@ -63,5 +59,14 @@ export default class extends Service {
     }
 
     return files
+  }
+
+  public async readFile() {
+    const { ctx } = this
+    const stream = fs.createReadStream(path.join(__dirname, `../public/${ctx.request.query.path}`))
+    return {
+      stream,
+      filename: stream.path.toString().replace(/([a-z\d]+\.[a-z\d]+)$/, '$1')
+    }
   }
 }

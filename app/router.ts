@@ -1,16 +1,17 @@
 import { Application } from 'egg'
-import { routerPrefix } from './settings'
+import { ROUTER_PREFIX } from './settings'
 
 export default (app: Application) => {
   const { controller, router } = app
 
-  router.prefix(routerPrefix)
+  router.prefix(ROUTER_PREFIX)
 
   router.post('/login', controller.login.login)
 
   router.post('/login-out', controller.loginOut.loginOut)
 
   router.post('/upload', controller.upload.upload)
+  router.get('/readfile', controller.upload.readFile)
 
   router.get('/system/user/list', controller.system.user.getUserList)
   router.post('/system/user/registered', controller.system.user.registered)

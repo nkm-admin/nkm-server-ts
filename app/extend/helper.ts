@@ -22,7 +22,7 @@ export default {
    * @param str 需要加密的字符串
    * @param salt 加盐
    */
-  md5: (str: string, salt = true): string => createHash('md5').update(`${str}${salt && Date.now()}`).digest('hex'),
+  md5: (str: string, salt = true): string => createHash('md5').update(`${str}${salt ? Date.now() : ''}`).digest('hex'),
 
   toLowerCamelCase,
 
