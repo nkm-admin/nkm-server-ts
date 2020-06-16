@@ -3,7 +3,7 @@ import { Service } from 'egg'
 interface CreateOption {
   name: string;
   code: string;
-  permission: string;
+  ids: string;
 }
 
 interface UpdateOption extends CreateOption {
@@ -66,7 +66,8 @@ export default class Role extends Service {
     if (role) return this.ctx.throw(200, this.ctx.errorMsg.role.exists)
 
     return ctx.model.Role.update({
-      ...ctx.helper.objectKeyToUnderline(option)
+      ...ctx.helper.objectKeyToUnderline(option),
+      permission: option.ids
     }, {
       where: {
         id: option.id
