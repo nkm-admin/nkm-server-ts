@@ -259,6 +259,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "资料更新",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-csrf-token",
+								"value": "{{csrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"displayName\": \"系统管理员\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/system/user/update-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"system",
+								"user",
+								"update-info"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -679,20 +718,36 @@
 				"header": [
 					{
 						"key": "token",
-						"value": "215165020d8ffa201fa84c87d104da83",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-csrf-token",
+						"value": "{{csrfToken}}",
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/Users/xuanmo/Desktop/MyDocuments/素材/水果/Fruit-8.png"
+						},
+						{
+							"key": "type",
+							"value": "account1",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:3333/api/nkm-admin/upload",
-					"protocol": "http",
+					"raw": "{{url}}/upload",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3333",
 					"path": [
-						"api",
-						"nkm-admin",
 						"upload"
 					]
 				}
@@ -711,6 +766,36 @@
 					],
 					"path": [
 						"captcha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "文件读取",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{url}}/readfile?path=/upload/2020/06/20200616141226631416.png",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"readfile"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "/upload/2020/06/20200616141226631416.png"
+						}
 					]
 				}
 			},
@@ -741,19 +826,19 @@
 	],
 	"variable": [
 		{
-			"id": "c0625989-3787-410f-a89b-99792ad2b79b",
+			"id": "3b0366a8-e325-4261-b2af-20cb8aa594d9",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c830cf12-27ae-4155-85dc-6ed1b5987504",
+			"id": "5ea67890-1ac4-498e-9af1-0b7057838acc",
 			"key": "token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d91603b6-f1cf-4ed6-bb42-6704d6f9974e",
+			"id": "ebb0a58f-454c-4437-886e-d20d8fc9f6eb",
 			"key": "csrfToken",
 			"value": "",
 			"type": "string"

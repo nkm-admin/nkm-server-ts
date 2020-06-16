@@ -2,6 +2,8 @@
 
 - 重构之前的后台，正好也是学习Egg+Typescript，目前正在开发中...
 - 技术栈：Nodejs+Eggjs+Typescript+Mysql+Redis
+- 接口文档都在[nkm-admin.postman_collection.json](./nkm-admin.postman_collection.json)文件，导入到postman即可
+- 管理员用户账号密码：admin/123456
 
 ## QuickStart
 
