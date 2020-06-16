@@ -41,7 +41,13 @@ export default class User extends BaseController {
 
   public async modifyPassword() {
     const { ctx } = this
-    await ctx.service.system.user.modifyPassword(ctx.request.body.id, ctx.request.body.password)
+    await ctx.service.system.user.modifyPassword(ctx.request.body.password)
+    ctx.body = this.success()
+  }
+
+  public async updateUserInfo() {
+    const { ctx } = this
+    await ctx.service.system.user.updateUserInfo(ctx.request.body)
     ctx.body = this.success()
   }
 }

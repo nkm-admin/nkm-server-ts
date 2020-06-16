@@ -16,7 +16,7 @@ interface UserInfo {
 
 export default class User extends Service {
   // 判断用户是否存在
-  private async _judgeUser(id: number) {
+  private async _judgeUser<T>(id: T) {
     const { ctx } = this
     const user = await ctx.model.User.findOne({
       where: {
@@ -100,11 +100,39 @@ export default class User extends Service {
   }
 
   // 修改密码
-  public async modifyPassword(id: number, password: string) {
+  public async modifyPassword(password: string) {
+    const { ctx } = this
+    const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
+
     await this._judgeUser(id)
 
-    return this.ctx.model.User.update({
-      password: this.ctx.helper.md5(password, false)
+    return ctx.model.User.update({
+      password: ctx.helper.md5(password, false)
+    }, {
+      where: {
+        id
+      }
+    })
+  }
+
+  public async updateUserInfo({
+    displayName,
+    email,
+    avatar
+  }: {
+    displayName: string;
+    email: string;
+    avatar: string;
+  }) {
+    const { ctx } = this
+    const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
+
+    await this._judgeUser(id)
+
+    return ctx.model.User.update({
+      display_name: displayName,
+      email,
+      avatar
     }, {
       where: {
         id

@@ -19,6 +19,7 @@ export default (app: Application) => {
   router.post('/system/user/modify-role', controller.system.user.modifyRole)
   router.post('/system/user/reset-password', controller.system.user.resetPassword)
   router.post('/system/user/modify-password', controller.system.user.modifyPassword)
+  router.post('/system/user/update-info', controller.system.user.updateUserInfo)
 
   router.post('/system/resource/save', controller.system.resource.save)
   router.post('/system/resource/del', controller.system.resource.del)

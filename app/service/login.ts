@@ -1,5 +1,5 @@
 import { Service } from 'egg'
-import { routerPrefix } from '../settings'
+import { ROUTER_PREFIX } from '../settings'
 
 export default class Login extends Service {
   private async _generateUserInfo(user: {
@@ -89,10 +89,10 @@ export default class Login extends Service {
       btnCodes,
       apis: [
         ...apis,
-        `${routerPrefix}/login`,
-        `${routerPrefix}/login-out`,
-        `${routerPrefix}/upload`,
-        `${routerPrefix}/system/dictionary/tree`
+        `${ROUTER_PREFIX}/upload`,
+        `${ROUTER_PREFIX}/system/dictionary/tree`,
+        `${ROUTER_PREFIX}/system/user/modify-password`,
+        `${ROUTER_PREFIX}/system/user/update-info`
       ]
     }
   }
