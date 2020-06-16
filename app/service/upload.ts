@@ -1,6 +1,7 @@
 import { Service } from 'egg'
 import path = require('path')
 import fs = require('fs')
+import { ROUTER_PREFIX } from '../settings'
 
 interface FileResponse {
   url: string;
@@ -38,22 +39,19 @@ export default class extends Service {
       // 获取上传文件扩展名
       const ext = file.filename.split('.').pop()
 
-      // 文件类型
-      const fileType = file.mime
-
       // 文件名
       const filename = `${ctx.datejs().format('yyyyMMddHHmmss')}${Math.random().toString().substring(2, 8)}.${ext}`
 
       // 创建可写流
       const upStream = fs.createWriteStream(`${writeDir}/${filename}`)
-      const remoteAddress = `/upload/${year}/${month}/${filename}`
+      const remoteAddress = `${ROUTER_PREFIX}/readfile?path=/upload/${year}/${month}/${fileType}/${filename}`
 
       // 可读流通过管道写入可写流
       reader.pipe(upStream)
 
       files.push({
         url: remoteAddress,
-        type: fileType,
+        type: file.mime,
         name: filename
       })
     }
