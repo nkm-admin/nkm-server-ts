@@ -1,5 +1,6 @@
 import errorMessage from './error'
 import { DEFAULT_PAGE_LIMIT } from '../settings'
+import datejs from '../utils/date'
 
 interface Response {
   data?: any;
@@ -10,6 +11,8 @@ interface Response {
 }
 
 export default {
+  datejs,
+
   errorMsg: errorMessage,
 
   defaultPageLimit: DEFAULT_PAGE_LIMIT,

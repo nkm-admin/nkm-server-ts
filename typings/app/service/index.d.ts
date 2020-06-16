@@ -9,6 +9,7 @@ type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? R
 import ExportCaptcha from '../../../app/service/captcha';
 import ExportLogin from '../../../app/service/login';
 import ExportLoginOut from '../../../app/service/loginOut';
+import ExportUpload from '../../../app/service/upload';
 import ExportSystemDictionary from '../../../app/service/system/dictionary';
 import ExportSystemResource from '../../../app/service/system/resource';
 import ExportSystemRole from '../../../app/service/system/role';
@@ -19,6 +20,7 @@ declare module 'egg' {
     captcha: AutoInstanceType<typeof ExportCaptcha>;
     login: AutoInstanceType<typeof ExportLogin>;
     loginOut: AutoInstanceType<typeof ExportLoginOut>;
+    upload: AutoInstanceType<typeof ExportUpload>;
     system: {
       dictionary: AutoInstanceType<typeof ExportSystemDictionary>;
       resource: AutoInstanceType<typeof ExportSystemResource>;

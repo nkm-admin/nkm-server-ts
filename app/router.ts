@@ -10,6 +10,8 @@ export default (app: Application) => {
 
   router.post('/login-out', controller.loginOut.loginOut)
 
+  router.post('/upload', controller.upload.upload)
+
   router.get('/system/user/list', controller.system.user.getUserList)
   router.post('/system/user/registered', controller.system.user.registered)
   router.post('/system/user/del', controller.system.user.del)

@@ -6,6 +6,7 @@ import ExportBaseController from '../../../app/controller/BaseController';
 import ExportCaptcha from '../../../app/controller/captcha';
 import ExportLogin from '../../../app/controller/login';
 import ExportLoginOut from '../../../app/controller/loginOut';
+import ExportUpload from '../../../app/controller/upload';
 import ExportSystemDictionary from '../../../app/controller/system/dictionary';
 import ExportSystemResource from '../../../app/controller/system/resource';
 import ExportSystemRole from '../../../app/controller/system/role';
@@ -17,6 +18,7 @@ declare module 'egg' {
     captcha: ExportCaptcha;
     login: ExportLogin;
     loginOut: ExportLoginOut;
+    upload: ExportUpload;
     system: {
       dictionary: ExportSystemDictionary;
       resource: ExportSystemResource;
