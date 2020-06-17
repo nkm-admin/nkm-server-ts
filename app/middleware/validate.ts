@@ -30,11 +30,16 @@ export default function() {
       await next()
     } catch (e) {
       console.log('validate校验失败===>', e)
-      if (e.code === 'invalid_param') ctx.throw(200, ctx.errorMsg.common.verificationFailed)
+      if (e.code === 'invalid_param') {
+        ctx.throw(200, {
+          errorMsg: e.errors.length > 1 ? ctx.errorMsg.common.verificationFailed.errorMsg : e.errors[0].message,
+          code: ctx.errorMsg.common.verificationFailed.code
+        })
+      }
 
       ctx.throw(200, {
-        errorMsg: e.errorMsg,
-        code: e.code
+        errorMsg: e.errorMsg || ctx.errorMsg.common.serverError.errorMsg,
+        code: e.code || ctx.errorMsg.common.serverError.code
       })
     }
   }

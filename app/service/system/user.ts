@@ -44,6 +44,17 @@ export default class User extends Service {
   // 注册用户，注册功能不对外开放
   public async registered(userInfo: UserInfo) {
     const { ctx } = this
+
+    // 校验
+    ctx.validate({
+      loginName: 'loginName',
+      password: 'password',
+      displayName: 'name',
+      email: 'email',
+      role: 'string',
+      avatar: 'string'
+    })
+
     const user = await ctx.model.User.findOne({
       where: {
         login_name: userInfo.loginName
@@ -102,6 +113,11 @@ export default class User extends Service {
   // 修改密码
   public async modifyPassword(password: string) {
     const { ctx } = this
+
+    ctx.validate({
+      password: 'password'
+    })
+
     const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
 
     await this._judgeUser(id)
@@ -125,6 +141,13 @@ export default class User extends Service {
     avatar: string;
   }) {
     const { ctx } = this
+
+    ctx.validate({
+      displayName: 'name',
+      email: 'email',
+      avatar: 'string'
+    })
+
     const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
 
     await this._judgeUser(id)

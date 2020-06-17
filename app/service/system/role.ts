@@ -86,6 +86,12 @@ export default class Role extends Service {
   }
 
   public async save(option: SaveOption) {
+    this.ctx.validate({
+      name: 'string',
+      code: 'code',
+      ids: 'string'
+    })
+
     return option.id ? this._update(option) : this._create(option)
   }
 

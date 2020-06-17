@@ -22,6 +22,10 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
+  config.validate = {
+    validateRoot: true
+  }
+
   config.multipart = {
     mode: 'file'
   }

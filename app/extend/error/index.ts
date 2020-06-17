@@ -16,19 +16,24 @@ const common: ErrorMessage = {
     code: '10001'
   },
 
+  serverError: {
+    errorMsg: 'Server Error',
+    code: '10002'
+  },
+
   noToken: {
     errorMsg: '用户登录已过期',
-    code: '10002'
+    code: '10003'
   },
 
   noAuthority: {
     errorMsg: '暂无请求权限',
-    code: '10003'
+    code: '10004'
   },
 
   verificationFailed: {
     errorMsg: '参数校验失败',
-    code: '10004'
+    code: '10005'
   }
 }
 
