@@ -50,8 +50,14 @@ export default class User extends Service {
       loginName: 'loginName',
       password: 'password',
       displayName: 'name',
-      email: 'email',
-      avatar: 'string'
+      email: {
+        type: 'email',
+        required: false
+      },
+      avatar: {
+        type: 'string',
+        required: false
+      }
     })
 
     const user = await ctx.model.User.findOne({
