@@ -244,7 +244,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"password\": \"12345678\",\n\t\"id\": 39\n}"
+							"raw": "{\n\t\"password\": \"123456\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/system/user/modify-password",
@@ -826,19 +826,19 @@
 	],
 	"variable": [
 		{
-			"id": "3b0366a8-e325-4261-b2af-20cb8aa594d9",
+			"id": "ec1ffd8f-c2c4-4cb5-a9c7-cd204d539904",
 			"key": "url",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5ea67890-1ac4-498e-9af1-0b7057838acc",
+			"id": "8b7d0e39-1ee4-4823-b2ef-a11581574d4f",
 			"key": "token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ebb0a58f-454c-4437-886e-d20d8fc9f6eb",
+			"id": "0b488cf9-2c6c-481b-91aa-14132e66bf48",
 			"key": "csrfToken",
 			"value": "",
 			"type": "string"
