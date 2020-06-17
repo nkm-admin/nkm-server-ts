@@ -51,7 +51,6 @@ export default class User extends Service {
       password: 'password',
       displayName: 'name',
       email: 'email',
-      role: 'string',
       avatar: 'string'
     })
 
