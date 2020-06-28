@@ -15,6 +15,14 @@ export default class Resource extends BaseController {
     })
   }
 
+  public async getList() {
+    const { ctx } = this
+    const data = await ctx.service.system.resource.getList()
+    ctx.body = this.success({
+      data
+    })
+  }
+
   public async del() {
     const { ctx } = this
     await ctx.service.system.resource.del(ctx.request.body.id)

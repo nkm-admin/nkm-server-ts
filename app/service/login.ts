@@ -49,7 +49,10 @@ export default class Login extends Service {
 
     try {
       resource = await ctx.model.Resource.findAll({
-        raw: true
+        raw: true,
+        where: {
+          enabled: 1
+        }
       })
     } catch (e) {
       ctx.throw(200, ctx.errorMsg.login.authorityError)

@@ -9,7 +9,7 @@ interface CreateOption {
   icon: string;
   sort: string;
   path: string;
-  enable: number;
+  enabled: number;
 }
 
 interface UpdateOption extends CreateOption {
@@ -97,6 +97,17 @@ export default class Resource extends Service {
     })
 
     return ctx.helper.sortTreeArr(ctx.helper.deepTree(resource))
+  }
+
+  public async getList() {
+    const { ctx } = this
+
+    return await ctx.model.Resource.findAll({
+      where: {
+        is_delete: 0
+      },
+      raw: true
+    })
   }
 
   public async del(id: number) {

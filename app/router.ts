@@ -24,6 +24,7 @@ export default (app: Application) => {
   router.post('/system/resource/save', controller.system.resource.save)
   router.post('/system/resource/del', controller.system.resource.del)
   router.get('/system/resource/tree', controller.system.resource.getTree)
+  router.get('/system/resource/list', controller.system.resource.getList)
 
   router.get('/system/role/list', controller.system.role.getList)
   router.post('/system/role/save', controller.system.role.save)
