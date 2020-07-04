@@ -3,7 +3,14 @@
 - 重构之前的后台，正好也是学习Egg+Typescript，目前正在开发中...
 - 技术栈：Nodejs+Eggjs+Typescript+Mysql+Redis
 - 接口文档都在[nkm-admin.postman_collection.json](./nkm-admin.postman_collection.json)文件，导入到postman即可
+- 数据库导入[nkm_admin.sql](./nkm_admin.sql)文件
 - 管理员用户账号密码：admin/123456
+- 其他配置参考eggjs文档[https://eggjs.org/zh-cn/basics/structure.html](https://eggjs.org/zh-cn/basics/structure.html)
+
+## 用户角色权限说明
+1. 新增资源
+1. 新增角色然后角色关联资源
+1. 新增用户然后用户关联角色（目前只实现了单角色关联）
 
 ## QuickStart
 
