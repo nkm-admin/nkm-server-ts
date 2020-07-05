@@ -35,7 +35,7 @@ export default class User extends Service {
     limit: number;
   }) {
     return this.ctx.model.User.findAndCountAll({
-      attributes: ['id', 'login_name', 'display_name', 'email', 'role', 'registered_time', 'last_login_time', 'status', 'is_system_admin', 'avatar', 'agent', 'is_delete'],
+      attributes: ['id', 'login_name', 'display_name', 'email', 'role', 'registered_time', 'last_login_time', 'status', 'is_system_admin', 'avatar', 'agent', 'is_deleted'],
       offset: page,
       limit
     })
@@ -81,7 +81,7 @@ export default class User extends Service {
     await this._judgeUser(id)
 
     return this.ctx.model.User.update({
-      is_delete: 1
+      is_deleted: 1
     }, {
       where: {
         id

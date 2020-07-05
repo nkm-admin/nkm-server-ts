@@ -18,7 +18,7 @@ export default class Role extends Service {
     const role = await this.ctx.model.Role.findOne({
       where: {
         id,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -30,7 +30,7 @@ export default class Role extends Service {
     const role = await this.ctx.model.Role.findOne({
       where: {
         code,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -58,7 +58,7 @@ export default class Role extends Service {
           [app.Sequelize.Op.not]: option.id
         },
         code: option.code,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -99,7 +99,7 @@ export default class Role extends Service {
     await this._queryTheExistenceById(id)
 
     return this.ctx.model.Role.update({
-      is_delete: 1
+      is_deleted: 1
     }, {
       where: {
         id

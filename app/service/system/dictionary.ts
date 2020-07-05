@@ -20,7 +20,7 @@ export default class Dictionary extends Service {
     const dictionary = await this.ctx.model.Dictionary.findOne({
       where: {
         id,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -32,7 +32,7 @@ export default class Dictionary extends Service {
     const dictionary = await this.ctx.model.Dictionary.findOne({
       where: {
         code,
-        is_delete: 0
+        is_deletedd: 0
       },
       raw: true
     })
@@ -59,7 +59,7 @@ export default class Dictionary extends Service {
           [app.Sequelize.Op.not]: option.id
         },
         code: option.code,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -68,7 +68,7 @@ export default class Dictionary extends Service {
 
     return ctx.model.Dictionary.update({
       ...ctx.helper.objectKeyToUnderline(option),
-      is_delete: 0
+      is_deleted: 0
     }, {
       where: {
         id: option.id
@@ -92,7 +92,7 @@ export default class Dictionary extends Service {
     await this._queryTheExistenceById(id)
 
     return this.ctx.model.Dictionary.update({
-      is_delete: 1
+      is_deleted: 1
     }, {
       where: {
         id

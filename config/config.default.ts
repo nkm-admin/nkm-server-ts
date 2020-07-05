@@ -18,7 +18,8 @@ export default (appInfo: EggAppInfo) => {
     timezone: '+08:00',
     define: {
       timestamps: false,
-      freezeTableName: true
+      freezeTableName: true,
+      underscored: false
     }
   }
 

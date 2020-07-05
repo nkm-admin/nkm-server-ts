@@ -1,6 +1,8 @@
-export default function(app: any) {
+import { Application } from 'egg'
+
+export default function(app: Application) {
   const { INTEGER, STRING, BIGINT } = app.Sequelize
-  const Role = app.model.define('nkm_role', {
+  const Role = app.model.define('role', {
     id: {
       type: INTEGER,
       autoIncrement: true,
@@ -25,19 +27,23 @@ export default function(app: any) {
       type: BIGINT,
       allowNull: false
     },
-    is_delete: {
+    is_deleted: {
       type: INTEGER,
       allowNull: false,
       defaultValue: 0
     }
   })
 
-  Role.associate = () => {
-    Role.belongsTo(app.model.User, {
-      foreignKey: 'code',
-      targetKey: 'role'
-    })
-  }
+  return class extends Role {
+    static readonly tableName = 'nkm_role'
 
-  return Role
+    // TODO 关联查询还没了解清楚
+    static association() {
+      app.model.Role.belongsTo(app.model.User, {
+        foreignKey: 'code',
+        targetKey: 'role',
+        as: 'u'
+      })
+    }
+  }
 }

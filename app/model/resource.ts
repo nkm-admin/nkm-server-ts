@@ -1,6 +1,8 @@
-export default function(app: any) {
+import { Application } from 'egg'
+
+export default function(app: Application) {
   const { BIGINT, INTEGER, STRING } = app.Sequelize
-  const Resource = app.model.define('nkm_resource', {
+  const Resource = app.model.define('resource', {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -35,7 +37,7 @@ export default function(app: any) {
       defaultValue: ''
     },
     sort: {
-      type: INTEGER(10),
+      type: INTEGER,
       allowNull: false,
       defaultValue: 1
     },
@@ -45,7 +47,7 @@ export default function(app: any) {
       defaultValue: ''
     },
     enabled: {
-      type: INTEGER(10),
+      type: INTEGER,
       allowNull: false,
       defaultValue: 1
     },
@@ -53,12 +55,14 @@ export default function(app: any) {
       type: BIGINT,
       allowNull: false
     },
-    is_delete: {
-      type: INTEGER(10),
+    is_deleted: {
+      type: INTEGER,
       allowNull: false,
       defaultValue: 0
     }
   })
 
-  return Resource
+  return class extends Resource {
+    static readonly tableName = 'nkm_resource'
+  }
 }

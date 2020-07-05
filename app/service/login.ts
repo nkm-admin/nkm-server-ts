@@ -45,13 +45,14 @@ export default class Login extends Service {
     if (!permission) ctx.throw(200, ctx.errorMsg.login.authorityError)
 
     // 查找所有的资源
-    let resource = []
+    let resource: any = []
 
     try {
       resource = await ctx.model.Resource.findAll({
         raw: true,
         where: {
-          enabled: 1
+          enabled: 1,
+          is_deleted: 0
         }
       })
     } catch (e) {
@@ -133,7 +134,7 @@ export default class Login extends Service {
       ctx.throw(200, ctx.errorMsg.login.captchaError)
     }
 
-    const user = await ctx.model.User.findOne({
+    const user: any = await ctx.model.User.findOne({
       where: {
         login_name: loginName,
         status: 1

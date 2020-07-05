@@ -1,6 +1,8 @@
-export default function(app: any) {
+import { Application } from 'egg'
+
+export default function(app: Application) {
   const { BIGINT, INTEGER, STRING } = app.Sequelize
-  const Dictionary = app.model.define('nkm_dictionary', {
+  const Dictionary = app.model.define('dictionary', {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -25,7 +27,7 @@ export default function(app: any) {
       defaultValue: 0
     },
     sort: {
-      type: INTEGER(30),
+      type: INTEGER,
       allowNull: false,
       defaultValue: 0
     },
@@ -33,12 +35,14 @@ export default function(app: any) {
       type: BIGINT,
       allowNull: false
     },
-    is_delete: {
-      type: INTEGER(10),
+    is_deleted: {
+      type: INTEGER,
       allowNull: false,
       defaultValue: 0
     }
   })
 
-  return Dictionary
+  return class extends Dictionary {
+    static readonly tableName = 'nkm_dictionary'
+  }
 }

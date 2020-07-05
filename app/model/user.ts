@@ -1,7 +1,9 @@
-export default function(app: any) {
+import { Application } from 'egg'
+
+export default function(app: Application) {
   const { STRING, BIGINT, INTEGER } = app.Sequelize
 
-  const User = app.model.define('nkm_users', {
+  const User = app.model.define('users', {
     id: {
       type: INTEGER,
       primaryKey: true,
@@ -49,20 +51,21 @@ export default function(app: any) {
       allowNull: false,
       defaultValue: ''
     },
-    is_delete: {
+    is_deleted: {
       type: INTEGER,
       allowNull: false,
       defaultValue: 0
     }
   })
 
-  User.associate = () => {
-    User.belongsTo(app.model.Role, {
-      foreignKey: 'role',
-      targetKey: 'code',
-      as: 'r'
-    })
+  return class extends User {
+    static readonly tableName = 'nkm_users'
+    static associate() {
+      app.model.User.belongsTo(app.model.Role, {
+        foreignKey: 'role',
+        targetKey: 'code',
+        as: 'r'
+      })
+    }
   }
-
-  return User
 }

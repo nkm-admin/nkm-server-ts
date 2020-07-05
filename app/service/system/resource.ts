@@ -24,7 +24,7 @@ export default class Resource extends Service {
     const resource = await this.ctx.model.Resource.findOne({
       where: {
         id,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -36,7 +36,7 @@ export default class Resource extends Service {
     const resource = await this.ctx.model.Resource.findOne({
       where: {
         code,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -65,7 +65,7 @@ export default class Resource extends Service {
           [app.Sequelize.Op.not]: option.id
         },
         code: option.code,
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -90,7 +90,7 @@ export default class Resource extends Service {
 
     const resource = await ctx.model.Resource.findAll({
       where: {
-        is_delete: 0,
+        is_deleted: 0,
         enabled: 1
       },
       raw: true
@@ -104,7 +104,7 @@ export default class Resource extends Service {
 
     return await ctx.model.Resource.findAll({
       where: {
-        is_delete: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -116,7 +116,7 @@ export default class Resource extends Service {
     await this._queryTheExistenceById(id)
 
     return ctx.model.Resource.update({
-      is_delete: 1
+      is_deleted: 1
     }, {
       where: {
         id
