@@ -37,8 +37,7 @@ export default function(app: Application) {
   return class extends Role {
     static readonly tableName = 'nkm_role'
 
-    // TODO 关联查询还没了解清楚
-    static association() {
+    static associate() {
       app.model.Role.belongsTo(app.model.User, {
         foreignKey: 'code',
         targetKey: 'role',

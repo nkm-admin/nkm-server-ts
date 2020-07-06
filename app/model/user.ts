@@ -60,6 +60,7 @@ export default function(app: Application) {
 
   return class extends User {
     static readonly tableName = 'nkm_users'
+
     static associate() {
       app.model.User.belongsTo(app.model.Role, {
         foreignKey: 'role',
