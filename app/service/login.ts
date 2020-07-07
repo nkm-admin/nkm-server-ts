@@ -77,6 +77,9 @@ export default class Login extends Service {
             menu.push(item)
             menuUrls.push(item.path)
             break
+          case 'system:resource:page':
+            menuUrls.push(item.path)
+            break
           case 'system:resource:btn':
             btnCodes.push(item.code)
             break
