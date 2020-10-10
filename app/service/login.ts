@@ -17,9 +17,8 @@ export default class Login extends Service {
     // 生成token并存入redis
     const token = ctx.helper.md5(user.login_name)
 
-    const authority = await this._generateAuthority(user['r.permission'])
+    const authority = await this._generateAuthority(user.role)
 
-    delete user['r.permission']
     delete user.password
 
     await app.redis.hmset(token, {
@@ -38,11 +37,21 @@ export default class Login extends Service {
   }
 
   // 生成权限信息
-  private async _generateAuthority(permission: string) {
+  private async _generateAuthority(roleCode: string) {
+    console.log(roleCode)
     const { ctx } = this
 
+    // 查找用户对应的角色权限
+    const roleList: any = await ctx.model.Role.findAll({
+      where: {
+        code: roleCode.split(',')
+      },
+      attributes: ['permission'],
+      raw: true
+    })
+
     // 账号没有权限访问
-    if (!permission) ctx.throw(200, ctx.errorMsg.login.authorityError)
+    if (!roleList) ctx.throw(200, ctx.errorMsg.login.authorityError)
 
     // 查找所有的资源
     let resource: any = []
@@ -60,7 +69,13 @@ export default class Login extends Service {
     }
 
     // 当前用户的权限
-    const currentUserPermission: string[] = permission.split(',')
+    let currentUserPermission: string[] = []
+    roleList.forEach((item: {
+      permission: string;
+    }) => {
+      currentUserPermission.push(...item.permission.split(','))
+    })
+    currentUserPermission = [...new Set(currentUserPermission)]
 
     const menu: object[] = []
 
@@ -142,11 +157,6 @@ export default class Login extends Service {
         login_name: loginName,
         status: 1
       },
-      include: [{
-        model: ctx.model.Role,
-        as: 'r',
-        attributes: ['permission']
-      }],
       raw: true
     })
 

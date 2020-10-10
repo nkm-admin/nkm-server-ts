@@ -34,11 +34,18 @@ export default class User extends Service {
     page: number;
     limit: number;
   }) {
-    return this.ctx.model.User.findAndCountAll({
+    const data: any = this.ctx.model.User.findAndCountAll({
       attributes: ['id', 'login_name', 'display_name', 'email', 'role', 'registered_time', 'last_login_time', 'status', 'is_system_admin', 'avatar', 'agent', 'is_deleted'],
       offset: page,
       limit
+    }).then((res: any) => {
+      res.rows.map((item: any) => {
+        item.role = item.role.split(',')
+        return item
+      })
+      return res
     })
+    return data
   }
 
   // 注册用户，注册功能不对外开放
