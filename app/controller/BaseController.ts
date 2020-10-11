@@ -9,14 +9,15 @@ export default class BaseController extends Controller {
     count?: number;
   } = {}) {
     // 转换字段为下划线分割为小驼峰
-    const deepConversion = <T>(data: T): T => {
+    const deepConversion = (data: any) => {
       let newData: any = null
       if (Array.isArray(data)) {
         newData = []
         data.forEach((item, i) => {
-          if (this.ctx.helper.isObject(item)) {
+          const _data = item.dataValues || item
+          if (this.ctx.helper.isObject(_data)) {
             newData[i] = {}
-            for (const [key, value] of Object.entries(item)) {
+            for (const [key, value] of Object.entries(_data)) {
               // 如果是数组或者对象继续递归
               if ((Array.isArray(value) && value.length) || this.ctx.helper.isObject(value)) {
                 newData[i][this.ctx.helper.toLowerCamelCase(key)] = deepConversion(value)
@@ -25,12 +26,13 @@ export default class BaseController extends Controller {
               }
             }
           } else {
-            newData[i] = item
+            newData[i] = _data
           }
         })
       } else if (this.ctx.helper.isObject(data)) {
+        const _data = data.dataValues || data
         newData = {}
-        for (const [key, value] of Object.entries(data)) {
+        for (const [key, value] of Object.entries(_data)) {
           // 如果是数组或者对象继续递归
           if ((Array.isArray(value) && value.length) || this.ctx.helper.isObject(value)) {
             newData[this.ctx.helper.toLowerCamelCase(key)] = deepConversion(value)
@@ -44,11 +46,7 @@ export default class BaseController extends Controller {
       return newData
     }
 
-    if (Array.isArray(response.data)) {
-      response.data = deepConversion<object[]>(response.data.map((item: any) => item.dataValues || item))
-    } else if (this.ctx.helper.isObject(response.data)) {
-      response.data = deepConversion<object>(response.data.dataValues || response.data)
-    }
+    response.data = deepConversion(response.data)
 
     return {
       ...this.ctx.responseStruc(),
