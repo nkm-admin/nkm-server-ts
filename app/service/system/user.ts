@@ -37,7 +37,10 @@ export default class User extends Service {
     const data: any = this.ctx.model.User.findAndCountAll({
       attributes: ['id', 'login_name', 'display_name', 'email', 'role', 'registered_time', 'last_login_time', 'status', 'is_system_admin', 'avatar', 'agent', 'is_deleted'],
       offset: page,
-      limit
+      limit,
+      where: {
+        is_deleted: 0
+      }
     }).then((res: any) => {
       res.rows.map((item: any) => {
         item.role = item.role.split(',')
@@ -89,6 +92,18 @@ export default class User extends Service {
 
     return this.ctx.model.User.update({
       is_deleted: 1
+    }, {
+      where: {
+        id
+      }
+    })
+  }
+
+  public async modifyStatus(id: number, status: number) {
+    await this._judgeUser(id)
+
+    return this.ctx.model.User.update({
+      status
     }, {
       where: {
         id

@@ -27,6 +27,12 @@ export default class User extends BaseController {
     ctx.body = this.success()
   }
 
+  public async modifyStatus() {
+    const { ctx } = this
+    await ctx.service.system.user.modifyStatus(ctx.request.body.id, ctx.request.body.status)
+    ctx.body = this.success()
+  }
+
   public async modifyRole() {
     const { ctx } = this
     await ctx.service.system.user.modifyRole(ctx.request.body.id, ctx.request.body.role)

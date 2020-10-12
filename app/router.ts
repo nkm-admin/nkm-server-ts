@@ -16,6 +16,7 @@ export default (app: Application) => {
   router.get('/system/user/list', controller.system.user.getUserList)
   router.post('/system/user/registered', controller.system.user.registered)
   router.post('/system/user/del', controller.system.user.del)
+  router.post('/system/user/modify-status', controller.system.user.modifyStatus)
   router.post('/system/user/modify-role', controller.system.user.modifyRole)
   router.post('/system/user/reset-password', controller.system.user.resetPassword)
   router.post('/system/user/modify-password', controller.system.user.modifyPassword)
