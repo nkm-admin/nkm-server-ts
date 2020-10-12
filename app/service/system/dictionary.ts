@@ -32,7 +32,7 @@ export default class Dictionary extends Service {
     const dictionary = await this.ctx.model.Dictionary.findOne({
       where: {
         code,
-        is_deletedd: 0
+        is_deleted: 0
       },
       raw: true
     })
@@ -83,7 +83,19 @@ export default class Dictionary extends Service {
   public async getTree() {
     const { ctx } = this
     const dictionary = await ctx.model.Dictionary.findAll({
-      raw: true
+      raw: true,
+      where: {
+        is_deleted: 0
+      }
+    })
+    const disabledIds: number[] = []
+    dictionary.map((item: any) => {
+      if (item.code === 'system') {
+        disabledIds.push(item.id)
+        item.disabled = true
+      }
+      if (disabledIds.includes(item.parent_id)) item.disabled = true
+      return item
     })
     return ctx.helper.sortTreeArr(ctx.helper.deepTree(dictionary))
   }
