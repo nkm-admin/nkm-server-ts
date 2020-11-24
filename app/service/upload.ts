@@ -60,11 +60,15 @@ export default class extends Service {
   }
 
   public async readFile() {
-    const { ctx } = this
-    const stream = fs.createReadStream(path.join(__dirname, `../public/${ctx.request.query.path}`))
-    return {
-      stream,
-      filename: stream.path.toString().replace(/([a-z\d]+\.[a-z\d]+)$/, '$1')
+    try {
+      const { ctx } = this
+      const stream = fs.createReadStream(path.join(__dirname, `../public/${ctx.request.query.path}`))
+      return {
+        stream,
+        filename: stream.path.toString().replace(/([a-z\d]+\.[a-z\d]+)$/, '$1')
+      }
+    } catch (err) {
+      this.ctx.logger.error('[文件读取失败]', JSON.stringify(err || {}))
     }
   }
 }

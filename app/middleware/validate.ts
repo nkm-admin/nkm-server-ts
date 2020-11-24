@@ -28,18 +28,18 @@ export default function() {
       }
 
       await next()
-    } catch (e) {
-      console.log('validate校验失败===>', e)
-      if (e.code === 'invalid_param') {
+    } catch (err) {
+      ctx.logger.error('[全局拦截]', err)
+      if (err.code === 'invalid_param') {
         ctx.throw(200, {
-          errorMsg: e.errors.length > 1 ? ctx.errorMsg.common.verificationFailed.errorMsg : e.errors[0].message,
+          errorMsg: err.errors.length > 1 ? ctx.errorMsg.common.verificationFailed.errorMsg : err.errors[0].message,
           code: ctx.errorMsg.common.verificationFailed.code
         })
       }
 
       ctx.throw(200, {
-        errorMsg: e.errorMsg || ctx.errorMsg.common.serverError.errorMsg,
-        code: e.code || ctx.errorMsg.common.serverError.code
+        errorMsg: err.errorMsg || ctx.errorMsg.common.serverError.errorMsg,
+        code: err.code || ctx.errorMsg.common.serverError.code
       })
     }
   }
