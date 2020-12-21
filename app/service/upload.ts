@@ -69,6 +69,10 @@ export default class extends Service {
       }
     } catch (err) {
       this.ctx.logger.error('[文件读取失败]', JSON.stringify(err || {}))
+      return {
+        stream: null,
+        filename: ''
+      }
     }
   }
 }
