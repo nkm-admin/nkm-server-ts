@@ -2,11 +2,12 @@ import { createHash } from 'crypto'
 
 /**
  * 下划线转小驼峰
- * @param str 转换字符串：user_info
+ * @param str 转换字符串：user_info 或者 user.info
  */
 const toLowerCamelCase = (str: string): string => {
-  return str.replace(/(_[a-z])/g, $1 => $1.replace('_', '').toLocaleUpperCase())
+  return str.replace(/((_|\.)[a-z])/g, $1 => $1.replace(/_|\./, '').toLocaleUpperCase())
 }
+
 
 /**
  * 小驼峰转下划线分割
