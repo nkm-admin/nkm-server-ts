@@ -5,8 +5,9 @@ module.exports = {
   },
   rules: {
     semi: ['error', 'never'],
-    'comma-dangle': ["error", "never"],
-    'array-bracket-spacing': "off",
-    'default-case': "off"
+    '@typescript-eslint/semi': 0,
+    'comma-dangle': ['error', 'never'],
+    'array-bracket-spacing': 0,
+    'default-case': 0
   }
 }
