@@ -1,3 +1,4 @@
+import { Application } from 'egg'
 import errorMessage from './error'
 import { DEFAULT_PAGE_LIMIT } from '../settings'
 import datejs from '../utils/date'
@@ -45,6 +46,18 @@ export default {
       message: errorMessage.common.success.errorMsg,
       code: errorMessage.common.success.code,
       ...res
+    }
+  },
+
+  /**
+   * 删除redis中保存的文件路径
+   * @param str 内容
+   * @param app egg
+   */
+  async deleteFilesByReids(str: string, app: Application) {
+    const files = str.match(/((?=(\/upload))(\S+\.\w{2,4}))+/gi) || []
+    for (let i = 0; i < files.length; i++) {
+      await app.redis.lrem('files', 0, files[i])
     }
   }
 }

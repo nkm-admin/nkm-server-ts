@@ -11,7 +11,7 @@ interface FileResponse {
 
 export default class extends Service {
   public async upload() {
-    const { ctx } = this
+    const { ctx, app } = this
     // 存放文件的目录
     const dir = path.join(__dirname, '../public/upload')
 
@@ -31,6 +31,7 @@ export default class extends Service {
     const writeDir = `${dir}/${year}/${month}/${fileType}`
 
     const files: FileResponse[] = []
+    const filesRelativeAddress: string[] = []
     for (let i = 0; i < ctx.request.files.length; i++) {
       const file = ctx.request.files[i]
       // 创建可读流
@@ -44,7 +45,8 @@ export default class extends Service {
 
       // 创建可写流
       const upStream = fs.createWriteStream(`${writeDir}/${filename}`)
-      const remoteAddress = `${ROUTER_PREFIX}/readfile?path=/upload/${year}/${month}/${fileType}/${filename}`
+      const relativeAddress = `/upload/${year}/${month}/${fileType}/${filename}`
+      const remoteAddress = `${ROUTER_PREFIX}/readfile?path=${relativeAddress}`
 
       // 可读流通过管道写入可写流
       reader.pipe(upStream)
@@ -54,7 +56,11 @@ export default class extends Service {
         type: file.mime,
         name: filename
       })
+      filesRelativeAddress.push(relativeAddress)
     }
+
+    // 将文件地址保存到redis中
+    await app.redis.rpush('files', filesRelativeAddress)
 
     return files
   }

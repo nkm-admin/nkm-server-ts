@@ -167,13 +167,16 @@ export default class User extends Service {
     email: string;
     avatar: string;
   }) {
-    const { ctx } = this
+    const { ctx, app } = this
 
     ctx.validate({
       displayName: 'name',
       email: 'email',
       avatar: 'string'
     })
+
+    // 从reids中删除匹配的文件路径
+    await ctx.deleteFilesByReids(avatar, app)
 
     const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
 
