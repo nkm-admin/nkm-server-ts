@@ -9,7 +9,7 @@
   },
   "scripts": {
     "bootstrap:test": "yarn --registry=https://registry.npmjs.org && yarn tsc && yarn start",
-    "start": "egg-scripts start --daemon --title=egg-server-nkm-server-ts",
+    "start": "egg-scripts start --daemon --title=egg-server-nkm-server-ts --port=3100",
     "stop": "egg-scripts stop --title=egg-server-nkm-server-ts",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
