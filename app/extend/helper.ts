@@ -1,13 +1,19 @@
 import { createHash } from 'crypto'
 
 /**
+  * 是否为对象
+  * @param obj any
+  * @return {boolean} boolean
+  */
+const isObject = (obj: any): boolean => Object.prototype.toString.call(obj) === '[object Object]'
+
+/**
  * 下划线转小驼峰
  * @param str 转换字符串：user_info 或者 user.info
  */
 const toLowerCamelCase = (str: string): string => {
   return str.replace(/((_|\.)[a-z])/g, $1 => $1.replace(/_|\./, '').toLocaleUpperCase())
 }
-
 
 /**
  * 小驼峰转下划线分割
@@ -18,16 +24,18 @@ const toUnderline = (str: string): string => {
 }
 
 export default {
+  toLowerCamelCase,
+
+  toUnderline,
+
+  isObject,
+
   /**
    * md5加密
    * @param str 需要加密的字符串
    * @param salt 加盐
    */
   md5: (str: string, salt = true): string => createHash('md5').update(`${str}${salt ? Date.now() : ''}`).digest('hex'),
-
-  toLowerCamelCase,
-
-  toUnderline,
 
   /**
    * 将对象的key如果为下划线命名转换为小驼峰
@@ -52,12 +60,6 @@ export default {
     }
     return result
   },
-
-  /**
-   * 是否为对象
-   * @param obj any
-   */
-  isObject: (obj: any): boolean => Object.prototype.toString.call(obj) === '[object Object]',
 
   /**
    * 一维数组转换为树形结构
@@ -93,5 +95,18 @@ export default {
     }
 
     return sortArr(arr)
+  },
+
+  /**
+   * 判断是否为空
+   * @param {*} value 数据源
+   * @return {boolean} boolean
+   */
+  isEmpty: (value: any): boolean => {
+    if (Array.isArray(value)) return value.length === 0
+
+    if (isObject(value)) return JSON.stringify(value) === '{}'
+
+    return [null, undefined, ''].includes(value)
   }
 }
