@@ -1,5 +1,5 @@
 import { Service } from 'egg'
-import { ROUTER_PREFIX } from '../settings'
+import { NO_AUTHORIZATION_REQUIRED_ROUTES } from '../settings'
 
 export default class Login extends Service {
   private async _generateUserInfo(user: {
@@ -111,12 +111,7 @@ export default class Login extends Service {
       btnCodes,
       apis: [
         ...apis,
-        `${ROUTER_PREFIX}/upload`,
-        `${ROUTER_PREFIX}/system/dictionary/tree`,
-        `${ROUTER_PREFIX}/system/user/modify-password`,
-        `${ROUTER_PREFIX}/system/user/update-info`,
-        `${ROUTER_PREFIX}/system/resource/tree`,
-        `${ROUTER_PREFIX}/system/role/list`
+        ...NO_AUTHORIZATION_REQUIRED_ROUTES
       ]
     }
   }

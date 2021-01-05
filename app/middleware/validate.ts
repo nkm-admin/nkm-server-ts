@@ -1,5 +1,5 @@
 import { Context } from 'egg'
-import { IGNORE_ROUTES } from '../settings'
+import { IGNORE_LOGIN_ROUTES } from '../settings'
 
 export default function() {
   return async function validate(ctx: Context, next: () => Promise<any>) {
@@ -7,7 +7,7 @@ export default function() {
       const token = ctx.request.headers.token
       const userInfo = await ctx.app.redis.hgetall(token)
 
-      if (IGNORE_ROUTES.findIndex(v => v.test(ctx.path)) !== -1) {
+      if (IGNORE_LOGIN_ROUTES.findIndex(v => v.test(ctx.path)) !== -1) {
         return await next()
       }
 
