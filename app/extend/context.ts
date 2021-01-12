@@ -1,4 +1,4 @@
-import { Application } from 'egg'
+import { Application, Context } from 'egg'
 import errorMessage from './error'
 import { DEFAULT_PAGE_LIMIT } from '../settings'
 import datejs from '../utils/date'
@@ -17,6 +17,16 @@ export default {
   errorMsg: errorMessage,
 
   defaultPageLimit: DEFAULT_PAGE_LIMIT,
+
+  /**
+   * 判断是否为系统管理员
+   * @param {Context} ctx Egg Context
+   */
+  async isSystemManager(ctx: Context): Promise<boolean> {
+    const token = ctx.request.headers.token
+    const { isSystemAdmin } = await ctx.app.redis.hgetall(token)
+    return Boolean(+isSystemAdmin)
+  },
 
   /**
    * 转换请求分页页码和每页分页量

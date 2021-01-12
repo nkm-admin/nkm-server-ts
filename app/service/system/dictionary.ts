@@ -89,8 +89,9 @@ export default class Dictionary extends Service {
       }
     })
     const disabledIds: number[] = []
+    const isManager = await ctx.isSystemManager(ctx)
     dictionary.map((item: any) => {
-      if (item.code === 'system') {
+      if ((item.code === 'system' || item.code.indexOf('system:resource') !== -1) && !isManager) {
         disabledIds.push(item.id)
         item.disabled = true
       }
