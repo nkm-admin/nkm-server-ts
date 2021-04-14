@@ -1,3 +1,6 @@
+// 用于加密安全key
+export const SECRET_KEY = '@$!nkm-123456'
+
 // 路由前缀
 export const ROUTER_PREFIX = '/api/nkm-admin'
 

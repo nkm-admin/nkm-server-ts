@@ -3,15 +3,15 @@
 
  Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 80016
+ Source Server Version : 80022
  Source Host           : localhost:3306
  Source Schema         : nkm_admin
 
  Target Server Type    : MySQL
- Target Server Version : 80016
+ Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 05/07/2020 17:52:06
+ Date: 14/04/2021 22:35:24
 */
 
 SET NAMES utf8mb4;
@@ -22,14 +22,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `nkm_dictionary`;
 CREATE TABLE `nkm_dictionary` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `value` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `parent_id` bigint(20) unsigned NOT NULL,
-  `sort` int(30) unsigned NOT NULL,
-  `create_time` bigint(20) unsigned NOT NULL,
-  `is_deleted` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0:未删除   1:已删除',
+  `parent_id` bigint unsigned NOT NULL,
+  `sort` int unsigned NOT NULL,
+  `create_time` bigint unsigned NOT NULL,
+  `is_deleted` int unsigned NOT NULL DEFAULT '0' COMMENT '0:未删除   1:已删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -50,18 +50,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `nkm_resource`;
 CREATE TABLE `nkm_resource` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(200) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` varchar(50) NOT NULL,
-  `parent_id` bigint(20) unsigned NOT NULL,
+  `parent_id` bigint unsigned NOT NULL,
   `parent_code` varchar(200) NOT NULL,
   `icon` varchar(200) NOT NULL,
-  `sort` int(255) unsigned NOT NULL,
+  `sort` int unsigned NOT NULL,
   `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `enabled` int(10) unsigned NOT NULL COMMENT '0：禁用  1：启用',
-  `create_time` bigint(255) unsigned NOT NULL,
-  `is_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `enabled` int unsigned NOT NULL COMMENT '0：禁用  1：启用',
+  `create_time` bigint unsigned NOT NULL,
+  `is_deleted` tinyint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
@@ -94,12 +94,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `nkm_role`;
 CREATE TABLE `nkm_role` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `permission` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `create_time` bigint(255) unsigned NOT NULL,
-  `is_deleted` int(10) unsigned NOT NULL DEFAULT '0',
+  `create_time` bigint unsigned NOT NULL,
+  `is_deleted` int unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -117,29 +117,30 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `nkm_users`;
 CREATE TABLE `nkm_users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `login_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `display_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `registered_time` bigint(255) NOT NULL DEFAULT '1565257063368',
-  `last_login_time` bigint(255) NOT NULL DEFAULT '1565257063368',
-  `status` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '0：禁用；1：启用',
-  `is_system_admin` int(10) unsigned NOT NULL DEFAULT '0',
+  `registered_time` bigint NOT NULL DEFAULT '1565257063368',
+  `last_login_time` bigint NOT NULL DEFAULT '1565257063368',
+  `status` int unsigned NOT NULL DEFAULT '1' COMMENT '0：禁用；1：启用',
+  `is_system_admin` int unsigned NOT NULL DEFAULT '0',
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `agent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `is_deleted` int(10) unsigned DEFAULT '0',
+  `is_deleted` int unsigned DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of nkm_users
 -- ----------------------------
 BEGIN;
-INSERT INTO `nkm_users` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1593942537501, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 0);
-INSERT INTO `nkm_users` VALUES (2, 'test', 'ceb8baef5116ea00dced818d38af6cfb', '测试人员1', 'm@example.com', 'test', 1592184900031, 1592316710463, 1, 0, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200616171102099796.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36', 0);
-INSERT INTO `nkm_users` VALUES (3, 'testAdmin', '2569d419bfea999ff13fd1f7f4498b89', '测试管理员', 'me@example.com', 'testAdmin', 1592378282544, 1592378908652, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (1, 'admin', 'da21b5d02cd29a0ee40847ccb09c49af', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1618409048802, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (2, 'test', '5c8c2647478042bc836d58b0f9cd4f27', '测试人员1', 'm@example.com', 'test', 1592184900031, 1618410029571, 1, 0, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200616171102099796.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (3, 'testAdmin', '5c8c2647478042bc836d58b0f9cd4f27', '测试管理员', 'me@example.com', 'testAdmin', 1592378282544, 1592378908652, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (4, 'test1', '0e1c210199abacde0985b8e994c94d60', 'test1', 'me@example.com', 'test', 1618410117679, 1618410141367, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

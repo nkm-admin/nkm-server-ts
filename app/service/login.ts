@@ -161,12 +161,12 @@ export default class Login extends Service {
     }
 
     // 密码不正确
-    if (user.password !== ctx.helper.md5(password, false)) {
+    if (user.password !== ctx.helper.md5(password)) {
       ctx.throw(200, ctx.errorMsg.login.passwordError)
     }
 
     // 更新最后登录信息
-    this._updateLastLoginInfo(user.login_name)
+    await this._updateLastLoginInfo(user.login_name)
 
     return this._generateUserInfo(user)
   }

@@ -61,8 +61,8 @@ export default {
 
   /**
    * 删除redis中保存的文件路径
-   * @param str 内容
-   * @param app egg
+   * @param {string} str 内容
+   * @param {EggApplication} app egg
    */
   async deleteFilesByReids(str: string, app: Application) {
     const files = str.match(/((?=(\/upload))(\S+\.\w{2,4}))+/gi) || []

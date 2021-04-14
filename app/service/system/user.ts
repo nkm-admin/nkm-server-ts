@@ -58,7 +58,6 @@ export default class User extends Service {
     // 校验
     ctx.validate({
       loginName: 'loginName',
-      password: 'password',
       displayName: 'name',
       email: {
         type: 'email',
@@ -80,7 +79,7 @@ export default class User extends Service {
 
     return ctx.model.User.create({
       ...ctx.helper.objectKeyToUnderline(userInfo),
-      password: ctx.helper.md5(userInfo.password, false),
+      password: ctx.helper.md5(userInfo.password),
       registered_time: Date.now(),
       last_login_time: Date.now()
     })
@@ -99,6 +98,7 @@ export default class User extends Service {
     })
   }
 
+  // 修改用户状态
   public async modifyStatus(id: number, status: number) {
     await this._judgeUser(id)
 
@@ -126,10 +126,11 @@ export default class User extends Service {
 
   // 重置密码
   public async resetPassword(id: number) {
+    const { ctx } = this
     await this._judgeUser(id)
 
-    return this.ctx.model.User.update({
-      password: this.ctx.helper.md5(DEFAULT_PASSWORD, false)
+    return ctx.model.User.update({
+      password: ctx.helper.md5(ctx.helper.md5(DEFAULT_PASSWORD))
     }, {
       where: {
         id
@@ -141,16 +142,12 @@ export default class User extends Service {
   public async modifyPassword(password: string) {
     const { ctx } = this
 
-    ctx.validate({
-      password: 'password'
-    })
-
     const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')
 
     await this._judgeUser(id)
 
     return ctx.model.User.update({
-      password: ctx.helper.md5(password, false)
+      password: ctx.helper.md5(password)
     }, {
       where: {
         id
