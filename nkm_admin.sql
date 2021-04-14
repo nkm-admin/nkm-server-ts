@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80022
  Source Host           : localhost:3306
- Source Schema         : nkm_admin
+ Source Schema         : nkm_admin_test
 
  Target Server Type    : MySQL
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 14/04/2021 22:35:24
+ Date: 14/04/2021 23:02:02
 */
 
 SET NAMES utf8mb4;
@@ -137,10 +137,10 @@ CREATE TABLE `nkm_users` (
 -- Records of nkm_users
 -- ----------------------------
 BEGIN;
-INSERT INTO `nkm_users` VALUES (1, 'admin', 'da21b5d02cd29a0ee40847ccb09c49af', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1618409048802, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (1, 'admin', 'eea325bb46d15a237ef89e2282afe077', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1618412458901, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
 INSERT INTO `nkm_users` VALUES (2, 'test', '5c8c2647478042bc836d58b0f9cd4f27', '测试人员1', 'm@example.com', 'test', 1592184900031, 1618410029571, 1, 0, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200616171102099796.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
 INSERT INTO `nkm_users` VALUES (3, 'testAdmin', '5c8c2647478042bc836d58b0f9cd4f27', '测试管理员', 'me@example.com', 'testAdmin', 1592378282544, 1592378908652, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36', 0);
-INSERT INTO `nkm_users` VALUES (4, 'test1', '0e1c210199abacde0985b8e994c94d60', 'test1', 'me@example.com', 'test', 1618410117679, 1618410141367, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
+INSERT INTO `nkm_users` VALUES (4, 'test1', '5c8c2647478042bc836d58b0f9cd4f27', 'test1', 'me@example.com', 'test', 1618410117679, 1618410141367, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
