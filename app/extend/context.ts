@@ -7,7 +7,7 @@ interface Response {
   data?: any;
   message?: string;
   success?: boolean;
-  code?: string;
+  code?: string | number;
   count?: number;
 }
 
