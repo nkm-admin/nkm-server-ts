@@ -13,7 +13,7 @@ export default (appInfo: EggAppInfo) => {
   config.sequelize = {
     username: 'root',
     password: '',
-    database: 'nkm_admin',
+    database: 'nkm_admin_test',
     host: '127.0.0.1',
     timezone: '+08:00',
     define: {

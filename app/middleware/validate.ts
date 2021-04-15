@@ -12,7 +12,7 @@ export default function() {
       }
 
       if (!token || JSON.stringify(userInfo) === '{}') {
-        ctx.throw(200, ctx.errorMsg.common.noToken)
+        ctx.throw(200, ctx.errorMsg.common.invalidToken)
       }
 
       // token续期

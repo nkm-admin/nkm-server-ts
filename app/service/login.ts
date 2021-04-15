@@ -144,7 +144,7 @@ export default class Login extends Service {
 
     // 验证码错误
     if (captcha !== _captcha) {
-      ctx.throw(200, ctx.errorMsg.login.captchaError)
+      ctx.throw(200, ctx.errorMsg.common.captchaError)
     }
 
     const user: any = await ctx.model.User.findOne({
