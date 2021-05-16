@@ -1,5 +1,5 @@
 import { Application } from 'egg'
-import validator from './validator'
+import validator from './app/validator'
 
 class AppBootHook {
   private app: Application
