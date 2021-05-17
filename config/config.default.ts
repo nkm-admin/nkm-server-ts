@@ -27,6 +27,11 @@ export default (appInfo: EggAppInfo) => {
     validateRoot: true
   }
 
+  config.logger = {
+    outputJSON: true,
+    dir: `${appInfo.root}/logs/${appInfo.name}`
+  }
+
   config.multipart = {
     mode: 'file'
   }

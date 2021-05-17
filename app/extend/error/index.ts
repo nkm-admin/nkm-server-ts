@@ -8,12 +8,17 @@ interface ErrorMessage {
 const common: ErrorMessage = {
   success: {
     errorMsg: '请求成功',
-    code: 1
+    code: 200
   },
 
   failed: {
     errorMsg: '请求失败',
     code: 0
+  },
+
+  notFound: {
+    errorMsg: 'Not Found',
+    code: 404
   },
 
   serverError: {
