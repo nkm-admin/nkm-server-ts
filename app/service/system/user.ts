@@ -1,5 +1,5 @@
 import { Service } from 'egg'
-import { DEFAULT_PASSWORD } from '../../settings'
+import { DEFAULT_PASSWORD, SYSTEM_ADMINISTRATOR_CODE } from '../../settings'
 
 interface UserInfo {
   loginName: string;
@@ -113,6 +113,14 @@ export default class User extends Service {
 
   // 用户修改角色
   public async modifyRole(id: number, role: string) {
+    const { ctx } = this
+
+    const isSystemAdmin = await ctx.isSystemManager(ctx)
+    // 如果不是系统管理员，角色不能包含系统管理员
+    if (!isSystemAdmin && role.indexOf(SYSTEM_ADMINISTRATOR_CODE) !== -1) {
+      ctx.throw(200, ctx.errorMsg.user.noSystenAdministratorsPermission)
+    }
+
     await this._judgeUser(id)
 
     return this.ctx.model.User.update({

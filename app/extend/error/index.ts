@@ -78,6 +78,11 @@ const user: ErrorMessage = {
   userNotExists: {
     errorMsg: '用户不存在',
     code: '10202'
+  },
+
+  noSystenAdministratorsPermission: {
+    errorMsg: '该账号没有赋予系统管理员角色的权限',
+    code: '10203'
   }
 }
 
