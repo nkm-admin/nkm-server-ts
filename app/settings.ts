@@ -4,6 +4,9 @@ export const SECRET_KEY = '@$!nkm-123456'
 // 路由前缀
 export const ROUTER_PREFIX = '/api/nkm-admin'
 
+// 新用户默认角色编码
+export const DEFAULT_RULE_CODE = 'test'
+
 // 默认分页量
 export const DEFAULT_PAGE_LIMIT = 10
 
@@ -18,7 +21,8 @@ export const IGNORE_LOGIN_ROUTES = [
   new RegExp(`${ROUTER_PREFIX}/login$`),
   new RegExp(`${ROUTER_PREFIX}/login-out$`),
   new RegExp(`${ROUTER_PREFIX}/captcha(\\?.*)?$`),
-  new RegExp(`${ROUTER_PREFIX}/readfile(\\?.*)?$`)
+  new RegExp(`${ROUTER_PREFIX}/readfile(\\?.*)?$`),
+  new RegExp(`${ROUTER_PREFIX}/system/user/registered`)
 ]
 
 // 无需授权的路由

@@ -2,6 +2,10 @@ import { Service } from 'egg'
 import { NO_AUTHORIZATION_REQUIRED_ROUTES } from '../settings'
 
 export default class Login extends Service {
+  /**
+   * 生成用户信息
+   * @param user 用户信息
+   */
   private async _generateUserInfo(user: {
     login_name: string;
     password: string;
