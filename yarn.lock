@@ -658,10 +658,10 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@xuanmo/javascript-utils@0.0.20":
-  version "0.0.20"
-  resolved "https://registry.npmmirror.com/@xuanmo/javascript-utils/download/@xuanmo/javascript-utils-0.0.20.tgz#3b341e9577f420dcf91f2365e824b2a8b28e6ae1"
-  integrity sha1-OzQelXf0INz5HyNl6CSyqLKOauE=
+"@xuanmo/javascript-utils@^0.0.21":
+  version "0.0.21"
+  resolved "https://registry.npmmirror.com/@xuanmo/javascript-utils/download/@xuanmo/javascript-utils-0.0.21.tgz?cache=0&sync_timestamp=1634486804302&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40xuanmo%2Fjavascript-utils%2Fdownload%2F%40xuanmo%2Fjavascript-utils-0.0.21.tgz#ff106b79a3ee9556ba86e5110899e6ba6b3b8c2d"
+  integrity sha1-/xBreaPulVa6huURCJnmums7jC0=
   dependencies:
     "@typescript-eslint/parser" "^4.27.0"
 
