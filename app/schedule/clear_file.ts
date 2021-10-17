@@ -1,6 +1,7 @@
 import { Subscription } from 'egg'
 import fs = require('fs')
 import path = require('path')
+import { isEmpty } from '@xuanmo/javascript-utils'
 
 export default class ClearFile extends Subscription {
   static get schedule() {
@@ -11,9 +12,9 @@ export default class ClearFile extends Subscription {
   }
 
   async subscribe() {
-    const { app, ctx } = this
+    const { app } = this
     const files = await app.redis.lrange('files', 0, -1)
-    if (ctx.helper.isEmpty(files)) return
+    if (isEmpty(files)) return
     files.forEach((item: string) => {
       try {
         fs.unlinkSync(path.join(__dirname, '../public', item))

@@ -1,5 +1,6 @@
 import { Service } from 'egg'
 import { NO_AUTHORIZATION_REQUIRED_ROUTES } from '../settings'
+import { objectKeyToCamelCase } from '@xuanmo/javascript-utils'
 
 export default class Login extends Service {
   /**
@@ -27,7 +28,7 @@ export default class Login extends Service {
 
     await app.redis.hmset(token, {
       apis: JSON.stringify(authority.apis),
-      ...ctx.helper.objectKeyToLowerCameCase(user)
+      ...objectKeyToCamelCase(user)
     })
     app.redis.expire(token, app.config.base.redis.expire)
 
