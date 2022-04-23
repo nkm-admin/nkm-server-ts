@@ -12,8 +12,8 @@ export default (appInfo: EggAppInfo) => {
 
   config.sequelize = {
     username: 'root',
-    password: '123456',
-    database: 'nkm_admin_test',
+    password: '123456.x',
+    database: 'nkm_admin',
     host: '127.0.0.1',
     timezone: '+08:00',
     define: {

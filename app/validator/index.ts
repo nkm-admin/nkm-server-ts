@@ -1,10 +1,13 @@
+import { AESHelper } from '../utils/crypto'
+
 export default {
   password: (value: string) => {
     const min = 6
     const max = 16
-    if (value.length < min) return `密码长度不能少于${min}位`
-    if (value.length > max) return `密码长度不能大于${max}位`
-    if (!/^[a-z\d,./!@#$*&-]+$/i.test(value)) return '密码格式错误'
+    const _value = AESHelper.decrypt(value)
+    if (_value.length < min) return `密码长度不能少于${min}位`
+    if (_value.length > max) return `密码长度不能大于${max}位`
+    if (!/^[a-z\d,./!@#$*&-]+$/i.test(_value)) return '密码格式错误'
   },
 
   loginName: (value: string) => {

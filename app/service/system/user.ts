@@ -1,5 +1,6 @@
 import { Service } from 'egg'
 import { DEFAULT_PASSWORD, SYSTEM_ADMINISTRATOR_CODE } from '../../settings'
+import { AESHelper } from '../../utils/crypto'
 
 interface UserInfo {
   loginName: string;
@@ -59,6 +60,8 @@ export default class User extends Service {
     ctx.validate({
       loginName: 'loginName',
       displayName: 'name',
+      // displayName: 'name',
+      password: 'password',
       email: {
         type: 'email',
         required: false
@@ -79,7 +82,7 @@ export default class User extends Service {
 
     return ctx.model.User.create({
       ...ctx.helper.objectKeyToUnderline(userInfo),
-      password: ctx.helper.md5(userInfo.password),
+      password: AESHelper.encrypt(userInfo.password),
       registered_time: Date.now(),
       last_login_time: Date.now()
     })
@@ -138,7 +141,7 @@ export default class User extends Service {
     await this._judgeUser(id)
 
     return ctx.model.User.update({
-      password: ctx.helper.md5(ctx.helper.md5(DEFAULT_PASSWORD))
+      password: AESHelper.encrypt(AESHelper.encrypt(DEFAULT_PASSWORD))
     }, {
       where: {
         id
@@ -155,7 +158,7 @@ export default class User extends Service {
     await this._judgeUser(id)
 
     return ctx.model.User.update({
-      password: ctx.helper.md5(password)
+      password: AESHelper.encrypt(password)
     }, {
       where: {
         id
@@ -180,7 +183,7 @@ export default class User extends Service {
       avatar: 'string'
     })
 
-    // 从reids中删除匹配的文件路径
+    // 从redis中删除匹配的文件路径
     await ctx.deleteFilesByReids(avatar, app)
 
     const id = await ctx.app.redis.hget(ctx.request.headers.token, 'id')

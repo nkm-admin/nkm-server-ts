@@ -1,6 +1,7 @@
 import { Service } from 'egg'
 import { NO_AUTHORIZATION_REQUIRED_ROUTES } from '../settings'
 import { objectKeyToCamelCase } from '@xuanmo/javascript-utils'
+import { AESHelper } from '../utils/crypto'
 
 export default class Login extends Service {
   /**
@@ -166,7 +167,7 @@ export default class Login extends Service {
     }
 
     // 密码不正确
-    if (user.password !== ctx.helper.md5(password)) {
+    if (AESHelper.decrypt(AESHelper.decrypt(user.password)) !== AESHelper.decrypt(password)) {
       ctx.throw(200, ctx.errorMsg.login.passwordError)
     }
 

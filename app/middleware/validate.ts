@@ -32,7 +32,7 @@ export default function() {
       ctx.logger.error('[全局拦截]', err)
       if (err.code === 'invalid_param') {
         ctx.throw(200, {
-          errorMsg: err.errors.length > 1 ? ctx.errorMsg.common.verificationFailed.errorMsg : err.errors[0].message,
+          errorMsg: err.errors.length >= 1 ? err.errors[0].message : ctx.errorMsg.common.verificationFailed.errorMsg,
           code: ctx.errorMsg.common.verificationFailed.code
         })
       }

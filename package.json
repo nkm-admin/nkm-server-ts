@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@xuanmo/javascript-utils": "^0.0.22",
+    "crypto-js": "^4.1.1",
     "egg": "^2.29.1",
     "egg-redis": "^2.4.0",
     "egg-scripts": "^2.6.0",

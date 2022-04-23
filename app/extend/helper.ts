@@ -1,16 +1,9 @@
-import { createHash } from 'crypto'
-import { SECRET_KEY } from '../settings'
 import { isObject, toUnderline } from '@xuanmo/javascript-utils'
+import { md5 } from '../utils/crypto'
 
 export default {
   isObject,
-
-  /**
-   * md5加密
-   * @param str 需要加密的字符串
-   * @param salt 加盐
-   */
-  md5: (str: string, salt = true): string => createHash('md5').update(`${str}${salt ? SECRET_KEY : ''}`).digest('hex'),
+  md5,
 
   /**
    * 将对象的key如果为驼峰命名转换为下划线
