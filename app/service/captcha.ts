@@ -4,7 +4,7 @@ import { createMathExpr } from 'svg-captcha'
 export default class Captcha extends Service {
   public async init() {
     const { ctx, app } = this
-    const { token }: { token: string } = ctx.query
+    const { token } = ctx.query
     const { data, text } = createMathExpr({
       noise: 0,
       color: true,

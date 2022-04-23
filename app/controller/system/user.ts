@@ -5,8 +5,8 @@ export default class User extends BaseController {
     const { ctx } = this
     const { rows: data, count } = await ctx.service.system.user.getUserList({
       ...ctx.conversionPagination({
-        page: ctx.query.page,
-        limit: ctx.query.limit
+        page: +ctx.query.page,
+        limit: +ctx.query.limit
       })
     })
     ctx.body = this.success({
