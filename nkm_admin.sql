@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 24/04/2022 12:15:45
+ Date: 24/04/2022 13:29:20
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `nkm_dictionary` (
   `create_time` bigint unsigned NOT NULL,
   `is_deleted` int unsigned NOT NULL DEFAULT '0' COMMENT '0:未删除   1:已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of nkm_dictionary
@@ -39,10 +39,11 @@ CREATE TABLE `nkm_dictionary` (
 BEGIN;
 INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (1, '系统管理', 'system', '', 0, 0, 1591973806775, 0);
 INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (2, '资源类型', 'system:resource:type', '', 1, 0, 1591973869522, 0);
-INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (3, '菜单', 'system:resource:menu', '', 2, 0, 1591973899050, 0);
+INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (3, '菜单', 'system:resource:menu', '', 2, 1, 1591973899050, 0);
 INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (4, '页面', 'system:resource:page', '', 2, 1, 1591973914964, 0);
 INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (5, '按钮', 'system:resource:btn', '', 2, 2, 1591973929488, 0);
 INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (6, '接口', 'system:resource:api', '', 2, 3, 1591973943052, 0);
+INSERT INTO `nkm_dictionary` (`id`, `name`, `code`, `value`, `parent_id`, `sort`, `create_time`, `is_deleted`) VALUES (7, '占位', 'placeholder', '', 2, 0, 1650778100554, 0);
 COMMIT;
 
 -- ----------------------------
@@ -137,7 +138,7 @@ CREATE TABLE `nkm_users` (
 -- Records of nkm_users
 -- ----------------------------
 BEGIN;
-INSERT INTO `nkm_users` (`id`, `login_name`, `password`, `display_name`, `email`, `role`, `registered_time`, `last_login_time`, `status`, `is_system_admin`, `avatar`, `agent`, `is_deleted`) VALUES (1, 'admin', 'U2FsdGVkX1/nkZ53+gUWe+lG/z4SFcLr+d5Dik8W7hczuIDTb4tWJb6jaWDHYaBnwrsqCrS7YJ4ThNc89xI8Hg==', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1650718908886, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', 0);
+INSERT INTO `nkm_users` (`id`, `login_name`, `password`, `display_name`, `email`, `role`, `registered_time`, `last_login_time`, `status`, `is_system_admin`, `avatar`, `agent`, `is_deleted`) VALUES (1, 'admin', 'U2FsdGVkX1/nkZ53+gUWe+lG/z4SFcLr+d5Dik8W7hczuIDTb4tWJb6jaWDHYaBnwrsqCrS7YJ4ThNc89xI8Hg==', '系统管理员', 'me@example.com', 'systemAdministrator', 1565758490904, 1650777473467, 1, 1, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200628130018776265.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', 0);
 INSERT INTO `nkm_users` (`id`, `login_name`, `password`, `display_name`, `email`, `role`, `registered_time`, `last_login_time`, `status`, `is_system_admin`, `avatar`, `agent`, `is_deleted`) VALUES (2, 'test', 'U2FsdGVkX1+VqcaYKflrT2jtgkJ/XcHVsOVf3ynTSCkQKrmY6Ao/z3qQA8nInOR16mMa/i+8450XkqRp7x/iMw==', '测试人员1', 'm@example.com', 'test', 1592184900031, 1618410029571, 1, 0, '/api/nkm-admin/readfile?path=/upload/2020/06/account/20200616171102099796.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
 INSERT INTO `nkm_users` (`id`, `login_name`, `password`, `display_name`, `email`, `role`, `registered_time`, `last_login_time`, `status`, `is_system_admin`, `avatar`, `agent`, `is_deleted`) VALUES (3, 'testAdmin', 'U2FsdGVkX1+slLT6JQ5iH5K2+5eia7BuYJaogrJ3CqVY2gmctVds0MJ4SWqfDvLKZSM/7WlS99pvgmHgTrEp1A==', '测试管理员', 'me@example.com', 'testAdmin', 1592378282544, 1650718890572, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36', 0);
 INSERT INTO `nkm_users` (`id`, `login_name`, `password`, `display_name`, `email`, `role`, `registered_time`, `last_login_time`, `status`, `is_system_admin`, `avatar`, `agent`, `is_deleted`) VALUES (4, 'test1', 'U2FsdGVkX187NcE3grth8DROkMrajEkG1qSigjPQ/oOzxjL4Kh1MBMJM2zkDGuc3G4z0P3I40V1sdGV4MV2FxQ==', 'test1', 'me@example.com', 'test', 1618410117679, 1618410141367, 1, 0, '/img/Fruit-1.ec29dc10.png', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 0);
